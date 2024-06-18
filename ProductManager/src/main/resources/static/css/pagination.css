@@ -1,0 +1,18 @@
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.page-link {
+    color: #00A78D;
+}
+
+.page-link:hover {
+    color: #00A78D;
+}
+
+.page-item.active .page-link {
+    background-color: #00A78D;
+    border-color: #00A78D;
+}

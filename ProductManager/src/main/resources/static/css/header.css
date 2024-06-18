@@ -1,0 +1,125 @@
+header {
+    min-height: 80px;
+    height: auto;
+    width: 100%;
+    padding: 0 40px;
+    background: #00A78D;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+}
+
+.hamburger {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.hamburger .bar {
+    width: 40px;
+    height: 3px;
+    background: #FFF;
+    border-radius: 2px;
+    display: block;
+    position: absolute;
+    transition: all 0.3s;
+}
+
+.hamburger .bar-top {
+    transform: translate(0, -12px);
+}
+
+.hamburger .bar-middle {
+    opacity: 1;
+}
+
+.hamburger .bar-bottom {
+    transform: translate(0, 12px);
+}
+
+.hamburger.close .bar-middle {
+    opacity: 0;
+}
+
+.hamburger.close .bar-top {
+    transform: translate(0, 0) rotate(45deg);
+}
+
+.hamburger.close .bar-bottom {
+    transform: translate(0, 0) rotate(-45deg);
+}
+
+.title-logo {
+    font-family: 'メイリオ', 'Meiryo', sans-serif;
+    font-size: 32px;
+    letter-spacing: 0.5em;
+    font-weight: bold;
+    transition: all 0.3s;
+    margin-left: 1rem;
+}
+
+.nav-menu {
+    position: fixed;
+    width: 280px;
+    height: 100%;
+    background: #000;
+    opacity: 1;
+    color: #fff;
+    top: 0;
+    left: -100%;
+    transition: all 0.3s;
+}
+
+.nav-menu::-webkit-scrollbar {
+    display: none;
+}
+
+.nav-menu ul {
+    margin-top: 80px;
+}
+
+.nav-menu li {
+    list-style: none;
+}
+
+.nav-menu.close {
+    left: 0;
+}
+
+.admin-menu a {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    font: inherit;
+    text-align: center;
+    font-size: 16px;
+    padding: 20px 0;
+    border-bottom: 1px dotted #FFF;
+}
+
+.admin-menu a:hover {
+    background-color: #FFF;
+    color: #ED6C02;
+}
+
+nav:hover {
+    opacity: 1 !important;
+    color: white !important;
+}
+
+a {
+    text-decoration: none !important;
+    color: #000;
+}
+
+a:hover {
+    color: #000;
+}
