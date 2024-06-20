@@ -25,7 +25,7 @@ public class ProductController {
 
     private final ProductStoreService productStoreService;
     private final CategoryService categoryService;
-    private static final int PAGE_SIZE = 3;
+    private static final int PAGE_SIZE = 12;
 
     public ProductController(
             ProductStoreService productStoreService,
@@ -48,6 +48,7 @@ public class ProductController {
             List<Category> largeCategories = categoryService.getAllLargeCategories();
 
             model.addAttribute("productStoreDtoList", productStoreDtoList);
+            model.addAttribute("pageObject", productStoreDtoList);
             model.addAttribute("largeCategories", largeCategories);
             model.addAttribute("errors", bindingResult.getAllErrors());
             return "product/index";
@@ -69,6 +70,7 @@ public class ProductController {
         model.addAttribute("middleCategories", middleCategories);
         model.addAttribute("smallCategories", smallCategories);
         model.addAttribute("productStoreDtoList", productStoreDtoList);
+        model.addAttribute("pageObject", productStoreDtoList);
         model.addAttribute("largeCategoryId", inputLargeCategory);
         model.addAttribute("middleCategoryId", inputMiddleCategory);
         model.addAttribute("smallCategoryId", inputSmallCategory);

@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Data
@@ -33,14 +33,14 @@ public class ProductStore {
     private Long stockQuantity;
 
     @Column(name = "price_created_at")
-    private LocalDateTime priceCreatedAt;
+    private Date priceCreatedAt;
 
     @Column(name = "stock_created_at")
-    private LocalDateTime stockCreatedAt;
+    private Date stockCreatedAt;
 
     @Column(name = "price_updated_at")
-    private LocalDateTime priceUpdatedAt;
+    private Date priceUpdatedAt;
 
     @Column(name = "stock_updated_at")
-    private LocalDateTime stockUpdatedAt;
+    private Date stockUpdatedAt;
 }

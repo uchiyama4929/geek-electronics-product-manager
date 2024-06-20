@@ -4,7 +4,7 @@ import com.example.demo.entity.Product;
 import com.example.demo.entity.Store;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 public record ProductStoreDTO(
         Long priceId,
@@ -13,9 +13,9 @@ public record ProductStoreDTO(
         Store store,
         BigDecimal salePrice,
         Long stockQuantity,
-        LocalDateTime priceCreatedAt,
-        LocalDateTime stockCreatedAt,
-        LocalDateTime priceUpdatedAt,
-        LocalDateTime stockUpdatedAt
+        Date priceCreatedAt,
+        Date stockCreatedAt,
+        Date priceUpdatedAt,
+        Date stockUpdatedAt
 ) {
 }

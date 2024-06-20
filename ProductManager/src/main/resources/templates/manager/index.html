@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理者一覧画面</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/btn.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/pagination.css}">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            margin-top: 40px;
+        }
+
+        .contents {
+            height: 80vh;
+        }
+
+        .content {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-top: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .admin-table {
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .admin-table th, .admin-table td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #dee2e6;
+        }
+
+        .admin-table th {
+            background-color: #00A78D;
+            color: #ffffff;
+        }
+
+        .admin-table tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+<div th:insert="include/header"></div>
+<div class="container">
+    <div class="row contents">
+        <div class="col-lg-10 offset-lg-1 content">
+            <h2 class="mb-4 text-center">管理者一覧</h2>
+            <div class="d-flex justify-content-end align-items-center mb-4">
+                <a th:href="@{/manager/create}" class="btn btn-green">管理者の新規登録</a>
+            </div>
+            <table class="table admin-table">
+                <thead>
+                <tr>
+                    <th>店舗名</th>
+                    <th>氏名</th>
+                    <th>役職</th>
+                    <th>権限</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="manager : ${managers}"
+                     th:onclick="|window.location.href='@{/manager/detail/{id}(id=${manager.id})}'|">
+                    <td th:text="${manager.getStore().getName()}"></td>
+                    <td th:text="${manager.getFullName()}"></td>
+                    <td th:text="${manager.getPosition().getName()}"></td>
+                    <td th:text="${manager.getPermission().getName()}"></td>
+                </tr>
+                </tbody>
+            </table>
+            <div th:insert="include/paginate"></div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" th:src="@{/js/header.js}"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+d
