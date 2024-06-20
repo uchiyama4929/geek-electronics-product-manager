@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理者プロフィール画面</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/modal.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/btn.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/manager/detail.css}">
+</head>
+<body>
+<div th:insert="include/header"></div>
+<div class="container">
+    <div class="row contents">
+        <div class="col-lg-8 offset-lg-2 content">
+            <h2 class="text-center mb-4">管理者詳細</h2>
+            <table class="table profile-table">
+                <tbody>
+                <tr>
+                    <th scope="row">店舗名</th>
+                    <td th:text="${manager.getStore().getName()}">Geek電機 渋谷店</td>
+                </tr>
+                <tr>
+                    <th scope="row">氏名</th>
+                    <td th:text="${manager.getFullName()}"></td>
+                </tr>
+                <tr>
+                    <th scope="row">電話番号</th>
+                    <td th:text="${manager.getPhoneNumber()}"></td>
+                </tr>
+                <tr>
+                    <th scope="row">メールアドレス</th>
+                    <td th:text="${manager.getEmail()}"></td>
+                </tr>
+                <tr>
+                    <th scope="row">パスワード</th>
+                    <td>**********</td>
+                </tr>
+                <tr>
+                    <th scope="row">役職</th>
+                    <td th:text="${manager.getPosition().getName()}"></td>
+                </tr>
+                <tr>
+                    <th scope="row">権限</th>
+                    <td th:text="${manager.getPermission().getName()}"></td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="text-center mt-4">
+                <a th:href="@{/manager/edit}" class="btn btn-green">プロフィールの編集</a>
+            </div> 
+            <div class="text-center mt-4">
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">管理者を削除する　</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 削除確認モーダル -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">確認</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="warning-icon">⚠️</div>
+                <p>本当にこの管理者を削除しますか？</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">キャンセル</button>
+                <a th:href="@{/manager/index}" class="btn btn-danger">削除</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/js/header.js}"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

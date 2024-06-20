@@ -58,4 +58,12 @@ public interface ManagerService {
      * @return 管理者情報全件
      */
     Page<Manager> findAll(Pageable pageable);
+
+    /**
+     * 指定したidの管理者情報を取得する。
+     *
+     * @param id ID
+     * @return 管理者情報
+     */
+    Manager findById(Long id);
 }

@@ -46,7 +46,7 @@ public class ManagerController {
     /**
      * ログイン画面初期表示
      *
-     * @param model view変数
+     * @param model   view変数
      * @param request リクエスト
      * @return ログイン画面
      */
@@ -55,7 +55,7 @@ public class ManagerController {
 
         // ログインチェック
         HttpSession session = request.getSession();
-        if (managerService.isLogin(session)){
+        if (managerService.isLogin(session)) {
             return "redirect:/product/index";
         }
 
@@ -67,9 +67,9 @@ public class ManagerController {
     /**
      * ログイン機能
      *
-     * @param loginForm view変数
+     * @param loginForm   view変数
      * @param errorResult バリデーションエラーデータ
-     * @param request リクエスト
+     * @param request     リクエスト
      * @return お問い合わせ一覧画面(バリデーションエラー時はログイン画面)
      */
     @PostMapping("/login")
@@ -81,7 +81,7 @@ public class ManagerController {
 
         // ログインチェック
         HttpSession session = request.getSession();
-        if (managerService.isLogin(session)){
+        if (managerService.isLogin(session)) {
             return "redirect:/manager/contacts";
         }
 
@@ -92,7 +92,7 @@ public class ManagerController {
 
         // ログインの確認
         Manager manager = managerService.certification(loginForm);
-        if (manager == null){
+        if (manager == null) {
             return "log_in";
         }
 
@@ -107,7 +107,7 @@ public class ManagerController {
             Model model,
             HttpServletRequest request,
             @RequestParam(value = "page", defaultValue = "0") int page
-    ){
+    ) {
 
         Page<Manager> managers = managerService.findAll(PageRequest.of(page, PAGE_SIZE));
 
@@ -117,7 +117,7 @@ public class ManagerController {
     }
 
     @GetMapping("/manager/create")
-    public String create(Model model){
+    public String create(Model model) {
         List<Store> stores = storeService.findAll();
         List<Position> positions = positionService.findAll();
         List<Permission> permissions = permissionService.findAll();
@@ -138,7 +138,7 @@ public class ManagerController {
             @Valid @ModelAttribute("categoryForm") ManagerCreateForm managerCreateForm,
             BindingResult bindingResult,
             Model model
-    ){
+    ) {
         if (bindingResult.hasErrors()) {
             List<Store> stores = storeService.findAll();
             List<Position> positions = positionService.findAll();
@@ -156,5 +156,16 @@ public class ManagerController {
 
         Manager manager = managerService.saveManager(managerCreateForm);
         return "redirect:/manager/index";
+    }
+
+    @GetMapping("/manager/detail/{id}")
+    public String detail(
+            Model model,
+            HttpServletRequest request,
+            @PathVariable(name = "id") Long id
+    ) {
+        Manager manager = managerService.findById(id);
+        model.addAttribute("manager", manager);
+        return "/manager/detail";
     }
 }

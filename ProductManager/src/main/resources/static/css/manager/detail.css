@@ -4,12 +4,9 @@ body {
     background-color: #f8f9fa;
 }
 
-.red {
-    color: red;
-}
-
 .container {
-    margin-top: 40px;
+    max-width: 800px;
+    margin: 40px auto 0;
 }
 
 .contents {
@@ -27,22 +24,28 @@ body {
     justify-content: center;
 }
 
-.admin-table {
+.profile-table {
     width: 100%;
     margin-top: 20px;
 }
 
-.admin-table th, .admin-table td {
+.profile-table th, .profile-table td {
     padding: 8px;
     text-align: left;
     border: 1px solid #dee2e6;
 }
 
-.admin-table th {
+.profile-table th {
     background-color: #00A78D;
     color: #ffffff;
 }
 
-.admin-table tr:hover {
-    background-color: #f1f1f1;
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
 }

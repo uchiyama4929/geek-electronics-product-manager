@@ -111,4 +111,8 @@ public class ManagerServiceImpl implements ManagerService  {
     public Page<Manager> findAll(Pageable pageable) {
         return managerRepository.findAll(pageable);
     }
+
+    public Manager findById(Long id) {
+        return managerRepository.findById(id.intValue()).orElseThrow(() -> new EntityNotFoundException("404 Not Found"));
+    }
 }
