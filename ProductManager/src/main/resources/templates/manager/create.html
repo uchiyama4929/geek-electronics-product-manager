@@ -5,59 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>管理者新規登録画面</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/header.css">
-    <link rel="stylesheet" href="../css/btn.css">
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #f8f9fa;
-        }
-
-        .container {
-            margin-top: 40px;
-        }
-
-        .content {
-            background: #ffffff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            margin-top: 24px;
-            margin-bottom: 24px !important;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .btn-green, .btn-secondary {
-            margin: 0 10px;
-        }
-
-        .btn-secondary {
-            background-color: #6c757d;
-            border-color: #6c757d;
-        }
-
-        .btn-secondary:hover {
-            background-color: #5a6268;
-            border-color: #545b62;
-        }
-
-        @media screen and (max-width: 767px) {
-            .nav-menu {
-                width: 100%;
-            }
-
-            header {
-                padding: 0 20px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/btn.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/manager/index.css}">
 </head>
 <body>
 <div th:insert="include/header"></div>
