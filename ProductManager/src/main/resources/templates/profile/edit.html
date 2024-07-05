@@ -3,27 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>管理者情報編集画面</title>
+    <title>管理者プロフィール編集画面</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/btn.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/manager/edit.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/profile/edit.css}">
 </head>
 <body>
 <div th:insert="include/header"></div>
 <div class="container">
     <div class="row contents">
         <div class="col-lg-8 offset-lg-2 content">
-            <h2 class="text-center mb-4">管理者編集</h2>
-            <form th:action="@{/manager/edit}" method="post" novalidate th:object="${ManagerForm}">
-                <input type="hidden" th:field="*{id}">
+            <h2 class="text-center mb-4">管理者プロフィール編集</h2>
+            <form th:action="@{/profile/edit}" method="post" novalidate th:object="${ManagerForm}">
+                <input type="hidden" th:field="*{storeId}">
+                <input type="hidden" th:field="*{positionId}">
+                <input type="hidden" th:field="*{permissionId}">
+                <div>
+                    <ul>
+                        <li th:each="error : ${errors}" th:text="${error.defaultMessage}">Error message</li>
+                    </ul>
+                </div>
                 <div class="form-group">
                     <label for="store-name">店舗名</label>
-                    <select th:field="*{storeId}" class="form-control" id="store-name">
-                        <option th:value="0">店舗を選択してください</option>
-                        <option th:each="store : ${stores}" th:value="${store.getId()}"
-                                th:text="${store.getName()}"
-                                th:selected="${store.getId() == manager.getStore().getId()}"></option>
+                    <select class="form-control" id="store-name" disabled>
+                        <option th:value="${manager.getStore().getId()}" th:text="${manager.getStore().getName()}" selected></option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -59,26 +63,18 @@
                 </div>
                 <div class="form-group">
                     <label for="position">役職</label>
-                    <select th:field="*{positionId}" class="form-control" id="position">
-                        <option th:value="0">役職を選択してください</option>
-                        <option th:each="position : ${positions}" th:value="${position.getId()}"
-                                th:text="${position.getName()}"
-                                th:selected="${position.getId() == manager.getPosition().getId()}"></option>
+                    <select class="form-control" id="position" disabled>
+                        <option th:value="${manager.getPosition().getId()}" th:text="${manager.getPosition().getName()}" selected></option>
                     </select>
-                    <span th:if="${#fields.hasErrors('positionId')}" th:errors="*{positionId}" class="red"></span>
                 </div>
                 <div class="form-group">
                     <label for="permission">権限</label>
-                    <select th:field="*{permissionId}" class="form-control" id="permission">
-                        <option th:value="0">権限を選択してください</option>
-                        <option th:each="permission : ${permissions}" th:value="${permission.getId()}"
-                                th:text="${permission.getName()}"
-                                th:selected="${permission.getId() == manager.getPermission().getId()}"></option>
+                    <select class="form-control" id="permission" disabled>
+                        <option th:value="${manager.getPermission().getId()}" th:text="${manager.getPermission().getName()}" selected></option>
                     </select>
-                    <span th:if="${#fields.hasErrors('permissionId')}" th:errors="*{permissionId}" style="color: red"></span>
                 </div>
                 <div class="text-center">
-                    <a th:href="@{/manager/detail/{id}(id=${manager.id})}" class="btn btn-secondary">戻る</a>
+                    <a th:href="@{/profile/detail}" class="btn btn-secondary">戻る</a>
                     <button class="btn btn-green">登録</button>
                 </div>
             </form>

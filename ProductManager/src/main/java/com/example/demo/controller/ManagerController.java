@@ -198,7 +198,8 @@ public class ManagerController {
             @Valid @ModelAttribute("managerForm") ManagerForm managerForm,
             BindingResult bindingResult,
             Model model,
-            RedirectAttributes redirectAttributes
+            RedirectAttributes redirectAttributes,
+            HttpSession session
     ){
         if (bindingResult.hasErrors()) {
             List<Store> stores = storeService.findAll();
@@ -218,6 +219,16 @@ public class ManagerController {
         redirectAttributes.addAttribute("id", id);
 
         Manager manager = managerService.saveManager(managerForm);
+
+        Object managerObject = session.getAttribute("manager");
+
+        if (!(managerObject instanceof Manager sessionManager)) {
+            return "redirect:/login";
+        }
+
+        if (manager.getId().equals(sessionManager.getId())) {
+            session.setAttribute("manager", manager);
+        }
 
         return "redirect:/manager/detail/{id}";
     }
