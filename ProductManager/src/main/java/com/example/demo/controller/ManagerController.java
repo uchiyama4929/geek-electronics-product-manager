@@ -50,7 +50,7 @@ public class ManagerController {
      * @return ログイン画面
      */
     @GetMapping("/login")
-    public String contact(Model model, HttpServletRequest request) {
+    public String login(Model model, HttpServletRequest request) {
 
         // ログインチェック
         HttpSession session = request.getSession();
@@ -77,37 +77,32 @@ public class ManagerController {
             BindingResult errorResult,
             HttpServletRequest request
     ) {
-
-        // ログインチェック
-        HttpSession session = request.getSession();
-        if (managerService.isLogin(session)) {
-            return "redirect:/manager/contacts";
-        }
-
-        // バリデーション
         if (errorResult.hasErrors()) {
             return "log_in";
         }
 
-        // ログインの確認
         Manager manager = managerService.certification(loginForm);
         if (manager == null) {
             return "log_in";
         }
 
-        //ログイン情報をセッションに保持
+        HttpSession session = request.getSession();
         session.setAttribute("manager", manager);
 
         return "redirect:/product/index";
     }
 
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/login";
+    }
+
     @GetMapping("/manager/index")
     public String index(
             Model model,
-            HttpServletRequest request,
             @RequestParam(value = "page", defaultValue = "0") int page
     ) {
-
         Page<Manager> managers = managerService.findAll(PageRequest.of(page, PAGE_SIZE));
 
         model.addAttribute("managers", managers);
@@ -161,7 +156,6 @@ public class ManagerController {
     @GetMapping("/manager/detail/{id}")
     public String detail(
             Model model,
-            HttpServletRequest request,
             @PathVariable(name = "id") Long id
     ) {
         Manager manager = managerService.findById(id);
@@ -172,7 +166,6 @@ public class ManagerController {
     @GetMapping("/manager/edit/{id}")
     public String edit(
             Model model,
-            HttpServletRequest request,
             @PathVariable(name = "id") Long id
     ) {
         Manager manager = managerService.findById(id);
