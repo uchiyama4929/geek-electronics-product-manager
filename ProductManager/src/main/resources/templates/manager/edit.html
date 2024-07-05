@@ -3,26 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>管理者新規登録画面</title>
+    <title>管理者情報編集画面</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/btn.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/manager/index.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/manager/edit.css}">
 </head>
 <body>
 <div th:insert="include/header"></div>
 <div class="container">
     <div class="row contents">
         <div class="col-lg-8 offset-lg-2 content">
-            <h2 class="text-center mb-4">管理者新規登録</h2>
-            <form th:action="@{/manager/create}" method="post" novalidate th:object="${ManagerForm}">
+            <h2 class="text-center mb-4">管理者編集</h2>
+            <form th:action="@{/manager/edit}" method="post" novalidate th:object="${ManagerForm}">
+                <input type="hidden" th:field="*{id}">
                 <div class="form-group">
                     <label for="store-name">店舗名</label>
                     <select th:field="*{storeId}" class="form-control" id="store-name">
                         <option th:value="0">店舗を選択してください</option>
                         <option th:each="store : ${stores}" th:value="${store.getId()}"
                                 th:text="${store.getName()}"
-                                th:selected="${store.getId() == selectedStoreId}"></option>
+                                th:selected="${store.getId() == manager.getStore().getId()}"></option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -38,12 +39,12 @@
                 </div>
                 <div class="form-group">
                     <label for="phone_number">電話番号</label>
-                    <input type="tel" th:field="*{phoneNumber}" class="form-control" id="phone_number" placeholder="電話番号を入力">
+                    <input type="tel" th:field="*{phoneNumber}" class="form-control" id="phone_number" placeholder="電話番号を入力" th:value="${manager.getPhoneNumber()}">
                     <span th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" style="color: red"></span>
                 </div>
                 <div class="form-group">
                     <label for="email">メールアドレス</label>
-                    <input type="email" th:field="*{email}" class="form-control" id="email" placeholder="emailを入力">
+                    <input type="email" th:field="*{email}" class="form-control" id="email" placeholder="emailを入力" th:value="${manager.getEmail()}">
                     <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color: red"></span>
                 </div>
                 <div class="form-group">
@@ -62,7 +63,7 @@
                         <option th:value="0">役職を選択してください</option>
                         <option th:each="position : ${positions}" th:value="${position.getId()}"
                                 th:text="${position.getName()}"
-                                th:selected="${position.getId() == selectedPositionId}"></option>
+                                th:selected="${position.getId() == manager.getPosition().getId()}"></option>
                     </select>
                     <span th:if="${#fields.hasErrors('positionId')}" th:errors="*{positionId}" class="red"></span>
                 </div>
@@ -72,12 +73,12 @@
                         <option th:value="0">権限を選択してください</option>
                         <option th:each="permission : ${permissions}" th:value="${permission.getId()}"
                                 th:text="${permission.getName()}"
-                                th:selected="${permission.getId() == selectedPermissionId}"></option>
+                                th:selected="${permission.getId() == manager.getPermission().getId()}"></option>
                     </select>
                     <span th:if="${#fields.hasErrors('permissionId')}" th:errors="*{permissionId}" style="color: red"></span>
                 </div>
                 <div class="text-center">
-                    <a th:href="@{/manager/index}" class="btn btn-secondary">戻る</a>
+                    <a th:href="@{/manager/detail/{id}(id=${manager.id})}" class="btn btn-secondary">戻る</a>
                     <button class="btn btn-green">登録</button>
                 </div>
             </form>

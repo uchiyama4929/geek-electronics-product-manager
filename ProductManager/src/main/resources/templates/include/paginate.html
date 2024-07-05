@@ -3,7 +3,7 @@
         <ul class="pagination">
             <li class="page-item" th:classappend="${pageObject.hasPrevious()} ? '' : 'disabled'">
                 <a class="page-link"
-                   th:href="@{/product/index(page=${pageObject.number - 1}, size=${pageObject.size})}"
+                   th:href="@{${pageName}(page=${pageObject.number - 1}, size=${pageObject.size})}"
                    aria-label="Previous">
                     <span aria-hidden="true">前へ</span>
                 </a>
@@ -12,12 +12,12 @@
                 th:each="pageNum : ${#numbers.sequence(0, pageObject.totalPages - 1)}"
                 th:classappend="${pageNum == pageObject.number} ? 'active'">
                 <a class="page-link"
-                   th:href="@{/product/index(page=${pageNum}, size=${pageObject.size})}"
+                   th:href="@{${pageName}(page=${pageNum}, size=${pageObject.size})}"
                    th:text="${pageNum + 1}">1</a>
             </li>
             <li class="page-item" th:classappend="${pageObject.hasNext()} ? '' : 'disabled'">
                 <a class="page-link"
-                   th:href="@{/product/index(page=${pageObject.number + 1}, size=${pageObject.size})}"
+                   th:href="@{${pageName}(page=${pageObject.number + 1}, size=${pageObject.size})}"
                    aria-label="Next">
                     <span aria-hidden="true">次へ</span>
                 </a>

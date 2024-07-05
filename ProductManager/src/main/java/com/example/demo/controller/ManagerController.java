@@ -1,10 +1,8 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.ProductStoreDTO;
 import com.example.demo.entity.*;
-import com.example.demo.form.CategoryForm;
 import com.example.demo.form.LoginForm;
-import com.example.demo.form.ManagerCreateForm;
+import com.example.demo.form.ManagerForm;
 import com.example.demo.service.PermissionService;
 import com.example.demo.service.PositionService;
 import com.example.demo.service.StoreService;
@@ -19,8 +17,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import com.example.demo.service.ManagerService;
 import jakarta.servlet.http.HttpServletRequest;
-
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
+import static java.lang.String.valueOf;
 
 
 @Controller
@@ -112,6 +111,7 @@ public class ManagerController {
         Page<Manager> managers = managerService.findAll(PageRequest.of(page, PAGE_SIZE));
 
         model.addAttribute("managers", managers);
+        model.addAttribute("pageName", "/manager/index");
         model.addAttribute("pageObject", managers);
         return "/manager/index";
     }
@@ -128,14 +128,14 @@ public class ManagerController {
         model.addAttribute("selectedStoreId", "0");
         model.addAttribute("selectedPositionId", "0");
         model.addAttribute("selectedPermissionId", "0");
-        model.addAttribute("ManagerCreateForm", new ManagerCreateForm());
+        model.addAttribute("ManagerForm", new ManagerForm());
 
         return "/manager/create";
     }
 
     @PostMapping("/manager/create")
     public String create(
-            @Valid @ModelAttribute("categoryForm") ManagerCreateForm managerCreateForm,
+            @Valid @ModelAttribute("ManagerForm") ManagerForm ManagerForm,
             BindingResult bindingResult,
             Model model
     ) {
@@ -147,14 +147,14 @@ public class ManagerController {
             model.addAttribute("stores", stores);
             model.addAttribute("positions", positions);
             model.addAttribute("permissions", permissions);
-            model.addAttribute("selectedStoreId", managerCreateForm.getStoreId());
-            model.addAttribute("selectedPositionId", managerCreateForm.getPositionId());
-            model.addAttribute("selectedPermissionId", managerCreateForm.getPermissionId());
-            model.addAttribute("ManagerCreateForm", managerCreateForm);
+            model.addAttribute("selectedStoreId", ManagerForm.getStoreId());
+            model.addAttribute("selectedPositionId", ManagerForm.getPositionId());
+            model.addAttribute("selectedPermissionId", ManagerForm.getPermissionId());
+            model.addAttribute("ManagerForm", ManagerForm);
             return "manager/create";
         }
 
-        Manager manager = managerService.saveManager(managerCreateForm);
+        Manager manager = managerService.saveManager(ManagerForm);
         return "redirect:/manager/index";
     }
 
@@ -167,5 +167,65 @@ public class ManagerController {
         Manager manager = managerService.findById(id);
         model.addAttribute("manager", manager);
         return "/manager/detail";
+    }
+
+    @GetMapping("/manager/edit/{id}")
+    public String edit(
+            Model model,
+            HttpServletRequest request,
+            @PathVariable(name = "id") Long id
+    ) {
+        Manager manager = managerService.findById(id);
+        List<Store> stores = storeService.findAll();
+        List<Position> positions = positionService.findAll();
+        List<Permission> permissions = permissionService.findAll();
+
+        ManagerForm managerForm = new ManagerForm();
+        managerForm.setId(valueOf(manager.getId()));
+        managerForm.setStoreId(valueOf(manager.getStore().getId()));
+        managerForm.setPositionId(valueOf(manager.getPosition().getId()));
+        managerForm.setPermissionId(valueOf(manager.getPermission().getId()));
+        managerForm.setLastName(manager.getLastName());
+        managerForm.setFirstName(manager.getFirstName());
+        managerForm.setEmail(manager.getEmail());
+        managerForm.setPhoneNumber(manager.getPhoneNumber());
+
+        model.addAttribute("stores", stores);
+        model.addAttribute("manager", manager);
+        model.addAttribute("positions", positions);
+        model.addAttribute("permissions", permissions);
+        model.addAttribute("ManagerForm", managerForm);
+
+        return "/manager/edit";
+    }
+
+
+    @PostMapping("/manager/edit")
+    public String edit(
+            @Valid @ModelAttribute("managerForm") ManagerForm managerForm,
+            BindingResult bindingResult,
+            Model model,
+            RedirectAttributes redirectAttributes
+    ){
+        if (bindingResult.hasErrors()) {
+            List<Store> stores = storeService.findAll();
+            List<Position> positions = positionService.findAll();
+            List<Permission> permissions = permissionService.findAll();
+
+            Manager manager = managerService.findById(Long.valueOf(managerForm.getId()));
+
+            model.addAttribute("stores", stores);
+            model.addAttribute("manager", manager);
+            model.addAttribute("positions", positions);
+            model.addAttribute("permissions", permissions);
+            model.addAttribute("ManagerForm", managerForm);
+            return "/manager/edit";
+        }
+        String id = managerForm.getId();
+        redirectAttributes.addAttribute("id", id);
+
+        Manager manager = managerService.saveManager(managerForm);
+
+        return "redirect:/manager/detail/{id}";
     }
 }

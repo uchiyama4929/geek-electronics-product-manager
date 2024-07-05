@@ -10,12 +10,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.example.demo.entity.Manager;
-import com.example.demo.form.ManagerCreateForm;
+import com.example.demo.form.ManagerForm;
 import com.example.demo.repository.ManagerRepository;
 import org.springframework.stereotype.Service;
-
 import java.util.Date;
-import java.util.Objects;
 
 @Service
 public class ManagerServiceImpl implements ManagerService  {
@@ -40,22 +38,28 @@ public class ManagerServiceImpl implements ManagerService  {
      * {@inheritDoc}
      */
     @Override
-    public Manager saveManager(ManagerCreateForm managerCreateForm) {
-        Manager manager = new Manager();
+    public Manager saveManager(ManagerForm managerForm) {
+        Manager manager;
 
-        String hashedPassword = hashPassword(managerCreateForm.getPassword());
+        if (managerForm.getId() != null) {
+            manager = managerRepository.findById(Integer.valueOf(managerForm.getId())).orElseThrow(() -> new IllegalArgumentException("Invalid contact id: " + managerForm.getId()));
+            manager.setUpdatedAt(new Date());
+        } else {
+            manager = new Manager();
+            manager.setCreatedAt(new Date());
+            manager.setUpdatedAt(new Date());
+        }
 
-        manager.setStore(storeRepository.findById(Long.parseLong(managerCreateForm.getStoreId())).orElseThrow(() -> new EntityNotFoundException("Store not found")));
-        manager.setPosition(positionRepository.findById(Long.parseLong(managerCreateForm.getPositionId())).orElseThrow(() -> new EntityNotFoundException("Position not found")));
-        manager.setPermission(permissionRepository.findById(Long.parseLong(managerCreateForm.getPermissionId())).orElseThrow(() -> new EntityNotFoundException("Permission not found")));
+        String hashedPassword = hashPassword(managerForm.getPassword());
+        manager.setStore(storeRepository.findById(Long.parseLong(managerForm.getStoreId())).orElseThrow(() -> new EntityNotFoundException("Store not found")));
+        manager.setPosition(positionRepository.findById(Long.parseLong(managerForm.getPositionId())).orElseThrow(() -> new EntityNotFoundException("Position not found")));
+        manager.setPermission(permissionRepository.findById(Long.parseLong(managerForm.getPermissionId())).orElseThrow(() -> new EntityNotFoundException("Permission not found")));
 
-        manager.setLastName(managerCreateForm.getLastName());
-        manager.setFirstName(managerCreateForm.getFirstName());
-        manager.setEmail(managerCreateForm.getEmail());
-        manager.setPhoneNumber(managerCreateForm.getPhoneNumber());
+        manager.setLastName(managerForm.getLastName());
+        manager.setFirstName(managerForm.getFirstName());
+        manager.setEmail(managerForm.getEmail());
+        manager.setPhoneNumber(managerForm.getPhoneNumber());
         manager.setPassword(hashedPassword);
-        manager.setCreatedAt(new Date());
-        manager.setUpdatedAt(new Date());
         managerRepository.save(manager);
         return manager;
     }
@@ -67,15 +71,9 @@ public class ManagerServiceImpl implements ManagerService  {
     public Manager certification(LoginForm loginForm) {
         Manager manager = managerRepository.findByEmail(loginForm.getEmail());
 
-//        if (manager != null && checkPassword(loginForm.getPassword(), manager.getPassword())) {
-//            return manager;
-//        }
-
-        // todo パスワードが暗号化されたら↑のロジックに戻す
-        if (manager != null && Objects.equals(manager.getPassword(), loginForm.getPassword())) {
+        if (manager != null && checkPassword(loginForm.getPassword(), manager.getPassword())) {
             return manager;
         }
-
 
         return null;
     }

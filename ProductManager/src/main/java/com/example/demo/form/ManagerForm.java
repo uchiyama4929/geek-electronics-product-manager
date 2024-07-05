@@ -6,7 +6,6 @@ import com.example.demo.validation.ValidPositionId;
 import com.example.demo.validation.ValidStoreId;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
@@ -15,7 +14,9 @@ import java.io.Serializable;
 
 @Data
 @FieldMatch(first = "password", second = "passwordConfirmation", message = "パスワードが確認用と一致しません。")
-public class ManagerCreateForm implements Serializable {
+public class ManagerForm implements Serializable {
+
+    private String id;
 
     @NotBlank
     @ValidStoreId
@@ -46,10 +47,8 @@ public class ManagerCreateForm implements Serializable {
     @Size(min = 10, max = 11)
     private String phoneNumber;
 
-    @NotBlank
     @Size(max = 255, message = "パスワードは255文字以下で入力してください。")
     private String password;
 
-    @NotBlank
     private String passwordConfirmation;
 }

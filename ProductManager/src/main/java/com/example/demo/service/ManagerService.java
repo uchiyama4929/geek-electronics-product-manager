@@ -1,7 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.Manager;
-import com.example.demo.form.ManagerCreateForm;
+import com.example.demo.form.ManagerForm;
 import jakarta.servlet.http.HttpSession;
 import com.example.demo.form.LoginForm;
 import org.springframework.data.domain.Page;
@@ -12,10 +12,10 @@ public interface ManagerService {
     /**
      * 管理者情報の登録、又は更新を行う
      *
-     * @param managerCreateForm view変数
+     * @param ManagerForm view変数
      * @return 登録対象の管理者情報
      */
-    Manager saveManager(ManagerCreateForm managerCreateForm);
+    Manager saveManager(ManagerForm ManagerForm);
 
     /**
      * パスワードの暗号化処理
