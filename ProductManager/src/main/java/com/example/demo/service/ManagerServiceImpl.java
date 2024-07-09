@@ -14,6 +14,7 @@ import com.example.demo.form.ManagerForm;
 import com.example.demo.repository.ManagerRepository;
 import org.springframework.stereotype.Service;
 import java.util.Date;
+import java.util.Objects;
 
 @Service
 public class ManagerServiceImpl implements ManagerService  {
@@ -42,15 +43,22 @@ public class ManagerServiceImpl implements ManagerService  {
         Manager manager;
 
         if (managerForm.getId() != null) {
+            // editの場合
             manager = managerRepository.findById(Integer.valueOf(managerForm.getId())).orElseThrow(() -> new IllegalArgumentException("Invalid contact id: " + managerForm.getId()));
             manager.setUpdatedAt(new Date());
+            if (!Objects.equals(managerForm.getPassword(), "")) {
+                String hashedPassword = hashPassword(managerForm.getPassword());
+                manager.setPassword(hashedPassword);
+            }
         } else {
+            // createの場合
             manager = new Manager();
             manager.setCreatedAt(new Date());
             manager.setUpdatedAt(new Date());
+            String hashedPassword = hashPassword(managerForm.getPassword());
+            manager.setPassword(hashedPassword);
         }
 
-        String hashedPassword = hashPassword(managerForm.getPassword());
         manager.setStore(storeRepository.findById(Long.parseLong(managerForm.getStoreId())).orElseThrow(() -> new EntityNotFoundException("Store not found")));
         manager.setPosition(positionRepository.findById(Long.parseLong(managerForm.getPositionId())).orElseThrow(() -> new EntityNotFoundException("Position not found")));
         manager.setPermission(permissionRepository.findById(Long.parseLong(managerForm.getPermissionId())).orElseThrow(() -> new EntityNotFoundException("Permission not found")));
@@ -59,7 +67,6 @@ public class ManagerServiceImpl implements ManagerService  {
         manager.setFirstName(managerForm.getFirstName());
         manager.setEmail(managerForm.getEmail());
         manager.setPhoneNumber(managerForm.getPhoneNumber());
-        manager.setPassword(hashedPassword);
         managerRepository.save(manager);
         return manager;
     }
