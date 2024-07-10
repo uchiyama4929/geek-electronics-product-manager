@@ -68,14 +68,14 @@ public class ManagerController {
      *
      * @param loginForm   view変数
      * @param errorResult バリデーションエラーデータ
-     * @param request     リクエスト
+     * @param session     セッション
      * @return お問い合わせ一覧画面(バリデーションエラー時はログイン画面)
      */
     @PostMapping("/login")
     public String certification(
             @Validated @ModelAttribute("loginForm") LoginForm loginForm,
             BindingResult errorResult,
-            HttpServletRequest request
+            HttpSession session
     ) {
         if (errorResult.hasErrors()) {
             return "log_in";
@@ -86,7 +86,6 @@ public class ManagerController {
             return "log_in";
         }
 
-        HttpSession session = request.getSession();
         session.setAttribute("manager", manager);
 
         return "redirect:/product/index";
