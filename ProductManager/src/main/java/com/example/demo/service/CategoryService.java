@@ -38,4 +38,13 @@ public interface CategoryService {
      * @return カテゴリID
      */
     Long parseCategoryId(String categoryId);
+
+    /**
+     * 直属の親カテゴリを取得する
+     * 大分類のidを指定した場合などはnullを返す
+     *
+     * @param id カテゴリID
+     * @return 上位のカテゴリ、またはnull
+     */
+    Category getParentCategory(Long id);
 }

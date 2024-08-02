@@ -112,11 +112,16 @@ public class ManagerServiceImpl implements ManagerService  {
         return encoder.matches(password, hashedPassword);
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     public Page<Manager> findAll(Pageable pageable) {
         return managerRepository.findAll(pageable);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public Manager findById(Long id) {
         return managerRepository.findById(id.intValue()).orElseThrow(() -> new EntityNotFoundException("404 Not Found"));
     }

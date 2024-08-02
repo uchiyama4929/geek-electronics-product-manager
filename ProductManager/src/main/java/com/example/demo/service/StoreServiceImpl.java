@@ -14,7 +14,17 @@ public class StoreServiceImpl implements StoreService {
         this.storeRepository = storeRepository;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public List<Store> findAll() {
         return storeRepository.findAll();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Store findById(Long id) {
+        return storeRepository.findById(id).orElseThrow(() ->new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found"));
     }
 }

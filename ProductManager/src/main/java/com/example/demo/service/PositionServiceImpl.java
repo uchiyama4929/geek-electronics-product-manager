@@ -14,6 +14,9 @@ public class PositionServiceImpl implements PositionService {
         this.positionRepository = positionRepository;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public List<Position> findAll() {
         return positionRepository.findAll();
     }

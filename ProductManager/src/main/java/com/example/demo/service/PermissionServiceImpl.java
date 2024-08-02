@@ -14,6 +14,9 @@ public class PermissionServiceImpl implements PermissionService {
         this.permissionRepository = permissionRepository;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public List<Permission> findAll() {
         return permissionRepository.findAll();
     }
