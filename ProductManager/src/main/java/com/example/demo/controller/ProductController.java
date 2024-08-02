@@ -2,19 +2,18 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.ProductStoreDTO;
 import com.example.demo.entity.Category;
+import com.example.demo.entity.Manager;
 import com.example.demo.form.CategoryForm;
 import com.example.demo.service.CategoryService;
 import com.example.demo.service.ProductStoreService;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -36,13 +35,20 @@ public class ProductController {
     }
 
     @GetMapping("/index")
-    public String product(
+    public String index(
             @Valid @ModelAttribute("categoryForm") CategoryForm categoryForm,
             BindingResult bindingResult,
             @RequestParam(value = "page", defaultValue = "0") int page,
-            Model model
+            Model model,
+            HttpSession session
     ) {
-        Long storeId = 1L;
+        Object managerObject = session.getAttribute("manager");
+
+        if (!(managerObject instanceof Manager managerSession)) {
+            return "redirect:/login";
+        }
+        Long storeId = managerSession.getStore().getId();
+
         if (bindingResult.hasErrors()) {
             Page<ProductStoreDTO> productStoreDtoList = productStoreService.getProductStoreInfo(storeId, null, null, PageRequest.of(page, PAGE_SIZE));
             List<Category> largeCategories = categoryService.getAllLargeCategories();
@@ -79,4 +85,31 @@ public class ProductController {
 
         return "product/index";
     }
+
+    @GetMapping("/detail/{id}")
+    public String detail(
+            Model model,
+            @PathVariable(name = "id") Long id,
+            HttpSession session
+    ) {
+        Object managerObject = session.getAttribute("manager");
+
+        if (!(managerObject instanceof Manager managerSession)) {
+            return "redirect:/login";
+        }
+
+        Long storeId = managerSession.getStore().getId();
+
+        ProductStoreDTO productStoreDto = productStoreService.findByIdAndStoreId(id, storeId);
+
+        Category middleCategory = categoryService.getParentCategory(productStoreDto.product().getCategory().getId());
+        Category largeCategory = categoryService.getParentCategory(middleCategory.getId());
+
+        model.addAttribute("productStoreDto", productStoreDto);
+        model.addAttribute("middleCategory", middleCategory);
+        model.addAttribute("largeCategory", largeCategory);
+        model.addAttribute("productId", id);
+        return "product/detail";
+    }
 }
+

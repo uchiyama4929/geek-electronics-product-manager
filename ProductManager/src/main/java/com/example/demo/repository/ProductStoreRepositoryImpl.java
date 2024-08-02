@@ -2,6 +2,7 @@ package com.example.demo.repository;
 
 import com.example.demo.dto.ProductStoreDTO;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import org.springframework.data.domain.Page;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class ProductStoreRepositoryImpl implements ProductStoreRepositoryCustom {
@@ -41,6 +43,21 @@ public class ProductStoreRepositoryImpl implements ProductStoreRepositoryCustom 
                 .getResultList();
 
         return new PageImpl<>(resultList, pageable, totalRows);
+    }
+
+    @Override
+    public Optional<ProductStoreDTO> findByIdAndStoreId(Long id, Long storeId) {
+        String jpql = "SELECT new com.example.demo.dto.ProductStoreDTO(ps.priceId, ps.stockId, p, s, ps.salePrice, ps.stockQuantity, ps.priceCreatedAt, ps.stockCreatedAt, ps.priceUpdatedAt, ps.stockUpdatedAt) FROM ProductStore ps JOIN ps.product p JOIN ps.store s WHERE s.id = :storeId AND p.id = :productId";
+
+        try {
+            ProductStoreDTO productStoreDTO = entityManager.createQuery(jpql, ProductStoreDTO.class)
+                    .setParameter("storeId", storeId)
+                    .setParameter("productId", id)
+                    .getSingleResult();
+            return Optional.of(productStoreDTO);
+        } catch (NoResultException e) {
+            return Optional.empty();
+        }
     }
 
     private static StringBuilder getStringBuilder(String keyword, List<Long> categoryIds) {

@@ -8,11 +8,14 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.example.demo.entity.Manager;
 import com.example.demo.form.ManagerForm;
 import com.example.demo.repository.ManagerRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
 import java.util.Date;
 import java.util.Objects;
 
@@ -123,6 +126,6 @@ public class ManagerServiceImpl implements ManagerService  {
      * {@inheritDoc}
      */
     public Manager findById(Long id) {
-        return managerRepository.findById(id.intValue()).orElseThrow(() -> new EntityNotFoundException("404 Not Found"));
+        return managerRepository.findById(id.intValue()).orElseThrow(() ->new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found"));
     }
 }

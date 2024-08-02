@@ -2,7 +2,9 @@ package com.example.demo.service;
 
 import com.example.demo.entity.Store;
 import com.example.demo.repository.StoreRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -25,6 +27,6 @@ public class StoreServiceImpl implements StoreService {
      * {@inheritDoc}
      */
     public Store findById(Long id) {
-        return storeRepository.findById(id).orElseThrow(() ->new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found"));
+        return storeRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found"));
     }
 }

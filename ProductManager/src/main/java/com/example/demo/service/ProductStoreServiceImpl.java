@@ -4,7 +4,9 @@ import com.example.demo.dto.ProductStoreDTO;
 import com.example.demo.repository.ProductStoreRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -28,5 +30,7 @@ public class ProductStoreServiceImpl implements ProductStoreService {
      * {@inheritDoc}
      */
     public ProductStoreDTO findByIdAndStoreId(Long id, Long storeId) {
-        return productStoreRepository.findByIdAndStoreId(id, storeId).orElseThrow(() ->new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found"));
+        return productStoreRepository.findByIdAndStoreId(id, storeId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found"));
     }
+
+}
