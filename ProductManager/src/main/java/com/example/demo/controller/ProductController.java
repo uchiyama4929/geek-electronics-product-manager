@@ -5,11 +5,14 @@ import com.example.demo.entity.Category;
 import com.example.demo.entity.Manager;
 import com.example.demo.form.CategoryForm;
 import com.example.demo.service.CategoryService;
+import com.example.demo.service.ManagerService;
 import com.example.demo.service.ProductStoreService;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,14 +27,17 @@ public class ProductController {
 
     private final ProductStoreService productStoreService;
     private final CategoryService categoryService;
+    private final ManagerService managerService;
     private static final int PAGE_SIZE = 12;
 
     public ProductController(
             ProductStoreService productStoreService,
-            CategoryService categoryService
+            CategoryService categoryService,
+            ManagerService managerService
     ) {
         this.productStoreService = productStoreService;
         this.categoryService = categoryService;
+        this.managerService = managerService;
     }
 
     @GetMapping("/index")
@@ -39,15 +45,23 @@ public class ProductController {
             @Valid @ModelAttribute("categoryForm") CategoryForm categoryForm,
             BindingResult bindingResult,
             @RequestParam(value = "page", defaultValue = "0") int page,
-            Model model,
-            HttpSession session
+            Model model
     ) {
-        Object managerObject = session.getAttribute("manager");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        if (!(managerObject instanceof Manager managerSession)) {
+        Object principal = authentication.getPrincipal();
+        Long storeId;
+
+        if (principal instanceof UserDetails) {
+            String email = ((UserDetails) principal).getUsername();
+            Manager manager = managerService.findByEmail(email);
+            if (manager == null) {
+                return "redirect:/login";
+            }
+            storeId = manager.getStore().getId();
+        } else {
             return "redirect:/login";
         }
-        Long storeId = managerSession.getStore().getId();
 
         if (bindingResult.hasErrors()) {
             Page<ProductStoreDTO> productStoreDtoList = productStoreService.getProductStoreInfo(storeId, null, null, PageRequest.of(page, PAGE_SIZE));
@@ -89,16 +103,23 @@ public class ProductController {
     @GetMapping("/detail/{id}")
     public String detail(
             Model model,
-            @PathVariable(name = "id") Long id,
-            HttpSession session
+            @PathVariable(name = "id") Long id
     ) {
-        Object managerObject = session.getAttribute("manager");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        if (!(managerObject instanceof Manager managerSession)) {
+        Object principal = authentication.getPrincipal();
+        Long storeId;
+
+        if (principal instanceof UserDetails) {
+            String email = ((UserDetails) principal).getUsername();
+            Manager manager = managerService.findByEmail(email);
+            if (manager == null) {
+                return "redirect:/login";
+            }
+            storeId = manager.getStore().getId();
+        } else {
             return "redirect:/login";
         }
-
-        Long storeId = managerSession.getStore().getId();
 
         ProductStoreDTO productStoreDto = productStoreService.findByIdAndStoreId(id, storeId);
 

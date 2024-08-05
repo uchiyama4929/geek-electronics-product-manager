@@ -1,11 +1,9 @@
 package com.example.demo.service;
 
-import com.example.demo.form.LoginForm;
 import com.example.demo.repository.PermissionRepository;
 import com.example.demo.repository.PositionRepository;
 import com.example.demo.repository.StoreRepository;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -20,7 +18,7 @@ import java.util.Date;
 import java.util.Objects;
 
 @Service
-public class ManagerServiceImpl implements ManagerService  {
+public class ManagerServiceImpl implements ManagerService {
 
     private final ManagerRepository managerRepository;
     private final StoreRepository storeRepository;
@@ -78,41 +76,9 @@ public class ManagerServiceImpl implements ManagerService  {
      * {@inheritDoc}
      */
     @Override
-    public Manager certification(LoginForm loginForm) {
-        Manager manager = managerRepository.findByEmail(loginForm.getEmail());
-
-        if (manager != null && checkPassword(loginForm.getPassword(), manager.getPassword())) {
-            return manager;
-        }
-
-        return null;
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isLogin(HttpSession session) {
-        Object manager = session.getAttribute("manager");
-        return manager != null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public String hashPassword(String password) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         return encoder.encode(password);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean checkPassword(String password, String hashedPassword) {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        return encoder.matches(password, hashedPassword);
     }
 
     /**
@@ -126,6 +92,10 @@ public class ManagerServiceImpl implements ManagerService  {
      * {@inheritDoc}
      */
     public Manager findById(Long id) {
-        return managerRepository.findById(id.intValue()).orElseThrow(() ->new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found"));
+        return managerRepository.findById(id.intValue()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found"));
+    }
+
+    public Manager findByEmail(String email) {
+        return managerRepository.findByEmail(email);
     }
 }

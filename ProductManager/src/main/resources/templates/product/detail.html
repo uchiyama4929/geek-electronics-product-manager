@@ -8,6 +8,8 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/btn.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/product/detail.css}">
+    <meta name="_csrf" th:content="${_csrf.token}">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
 </head>
 <body>
 <div id="product" th:data-product-id="${productId}"></div>

@@ -28,7 +28,9 @@ function completeOrder() {
 
     const productElement = document.getElementById('product');
     const productId = productElement.getAttribute('data-product-id');
-    console.log(productId);
+
+    const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+    const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
 
     const quantity = document.getElementById('order-quantity').value;
 
@@ -40,7 +42,8 @@ function completeOrder() {
     fetch('/api/orders', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            [csrfHeader]: csrfToken
         },
         body: JSON.stringify(orderData)
     })

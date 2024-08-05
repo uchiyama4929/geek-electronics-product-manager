@@ -6,18 +6,24 @@ import com.example.demo.form.ManagerForm;
 import com.example.demo.service.PermissionService;
 import com.example.demo.service.PositionService;
 import com.example.demo.service.StoreService;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import com.example.demo.service.ManagerService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.Collections;
 import java.util.List;
 import static java.lang.String.valueOf;
 
@@ -51,50 +57,8 @@ public class ManagerController {
      */
     @GetMapping("/login")
     public String login(Model model, HttpServletRequest request) {
-
-        // ログインチェック
-        HttpSession session = request.getSession();
-        if (managerService.isLogin(session)) {
-            return "redirect:/product/index";
-        }
-
         model.addAttribute("loginForm", new LoginForm());
-
         return "log_in";
-    }
-
-    /**
-     * ログイン機能
-     *
-     * @param loginForm   view変数
-     * @param errorResult バリデーションエラーデータ
-     * @param session     セッション
-     * @return お問い合わせ一覧画面(バリデーションエラー時はログイン画面)
-     */
-    @PostMapping("/login")
-    public String certification(
-            @Validated @ModelAttribute("loginForm") LoginForm loginForm,
-            BindingResult errorResult,
-            HttpSession session
-    ) {
-        if (errorResult.hasErrors()) {
-            return "log_in";
-        }
-
-        Manager manager = managerService.certification(loginForm);
-        if (manager == null) {
-            return "log_in";
-        }
-
-        session.setAttribute("manager", manager);
-
-        return "redirect:/product/index";
-    }
-
-    @GetMapping("/logout")
-    public String logout(HttpSession session) {
-        session.invalidate();
-        return "redirect:/login";
     }
 
     @GetMapping("/manager/index")
@@ -197,8 +161,7 @@ public class ManagerController {
             @Valid @ModelAttribute("managerForm") ManagerForm managerForm,
             BindingResult bindingResult,
             Model model,
-            RedirectAttributes redirectAttributes,
-            HttpSession session
+            RedirectAttributes redirectAttributes
     ){
         if (bindingResult.hasErrors()) {
             List<Store> stores = storeService.findAll();
@@ -214,19 +177,46 @@ public class ManagerController {
             model.addAttribute("ManagerForm", managerForm);
             return "/manager/edit";
         }
+
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        Object principal = authentication.getPrincipal();
+        Manager currentManager;
+
+        if (principal instanceof UserDetails) {
+            String email = ((UserDetails) principal).getUsername();
+            currentManager = managerService.findByEmail(email);
+            if (currentManager == null) {
+                return "redirect:/login";
+            }
+        } else {
+            return "redirect:/login";
+        }
+
         String id = managerForm.getId();
         redirectAttributes.addAttribute("id", id);
 
         Manager manager = managerService.saveManager(managerForm);
 
-        Object managerObject = session.getAttribute("manager");
+        if (manager.getId().equals(currentManager.getId())) {
 
-        if (!(managerObject instanceof Manager sessionManager)) {
-            return "redirect:/login";
-        }
+            UserDetails updatedUserDetails = new User(
+                    manager.getEmail(),
+                    manager.getPassword(),
+                    true,
+                    true,
+                    true,
+                    true,
+                    Collections.singleton(new SimpleGrantedAuthority(manager.getPermission().getName()))
+            );
 
-        if (manager.getId().equals(sessionManager.getId())) {
-            session.setAttribute("manager", manager);
+            Authentication newAuth = new UsernamePasswordAuthenticationToken(
+                    updatedUserDetails,
+                    updatedUserDetails.getPassword(),
+                    updatedUserDetails.getAuthorities());
+
+            SecurityContextHolder.getContext().setAuthentication(newAuth);
         }
 
         return "redirect:/manager/detail/{id}";
