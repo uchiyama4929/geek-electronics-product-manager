@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.Store;
+import com.example.demo.form.StoreForm;
 
 import java.util.List;
 
@@ -19,4 +20,12 @@ public interface StoreService {
      * @return 店舗情報
      */
     Store findById(Long id);
+
+    /**
+     * 店舗情報の更新処理
+     *
+     * @param storeForm 店舗情報
+     * @return 更新後のデータ
+     */
+    Store saveStore(StoreForm storeForm);
 }
