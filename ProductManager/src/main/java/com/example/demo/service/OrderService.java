@@ -1,8 +1,8 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.Order;
-import com.example.demo.form.OrderForm;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface OrderService {
     /**
@@ -15,4 +15,14 @@ public interface OrderService {
      * @return 注文情報
      */
     Order createOrder(String orderQuantity, Long orderProductId, Long managerId, Long storeId);
+
+    /**
+     * 店舗に紐づく発注情報を全件取得
+     * ページネイト対応
+     *
+     * @param storeId  店舗ID
+     * @param pageable ページネイト
+     * @return 発注履歴
+     */
+    Page<Order> findByStoreId(Long storeId, Pageable pageable);
 }

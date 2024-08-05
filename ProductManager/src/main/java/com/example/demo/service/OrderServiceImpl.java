@@ -4,6 +4,8 @@ import com.example.demo.entity.*;
 import com.example.demo.repository.OrderRepository;
 import com.example.demo.repository.ProductStockRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.util.Date;
 
@@ -58,5 +60,9 @@ public class OrderServiceImpl implements OrderService {
             throw new RuntimeException("Product not found: " + orderProductId);
         }
         return order;
+    }
+
+    public Page<Order> findByStoreId(Long storeId, Pageable pageable) {
+        return orderRepository.findByStoreId(storeId, pageable);
     }
 }

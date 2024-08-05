@@ -1,0 +1,51 @@
+body {
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+.main {
+    display: flex;
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.content {
+    flex: 1;
+    padding: 20px;
+    transition: margin-left 0.3s ease;
+}
+
+.order-table th, .order-table td {
+    padding: 8px;
+    text-align: left;
+    border: 1px solid #dee2e6;
+}
+
+.order-table th {
+    background-color: #00A78D;
+    color: #ffffff;
+}
+
+/* 奇数行のスタイル */
+table tr:nth-child(odd){
+    background-color:#fafafa;
+}
+
+/* 偶数行のスタイル */
+table tr:nth-child(even){
+    background-color:white;
+}
+
+.pagination {
+    justify-content: center;
+    padding-bottom: 20px;
+}
+@media screen and (max-width: 767px) {
+    .nav-menu {
+        width: 100%;
+    }
+    header {
+        padding: 0 20px;
+    }
+}
