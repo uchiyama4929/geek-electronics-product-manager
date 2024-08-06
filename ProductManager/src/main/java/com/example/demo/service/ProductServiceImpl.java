@@ -34,4 +34,13 @@ public class ProductServiceImpl implements ProductService {
     public Page<Product> findByManufacturerId(Long manufacturerId, Pageable pageable) {
         return productRepository.findByManufacturerId(manufacturerId, pageable);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Page<Product> findByCategoryId(Long categoryId, Pageable pageable) {
+        return productRepository.findByCategoryId(categoryId, pageable);
+    }
+
 }

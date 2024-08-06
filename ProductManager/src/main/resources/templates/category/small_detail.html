@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小カテゴリ詳細</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/btn.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/pagination.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/category/small_detail.css}">
+</head>
+<body>
+<div th:insert="include/header"></div>
+
+<div class="container">
+    <div class="content">
+        <h2 class="mb-4 text-center">小カテゴリ詳細</h2>
+        <h3 class="mb-4 text-center" th:text="${category.getName()}"></h3>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>メーカ</th>
+                <th>商品名</th>
+                <th>説明</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="product : ${products}"
+                th:onclick="|window.location.href='@{/product/detail/{id}(id=${product.id})}'|">
+                <td th:text="${product.getManufacturer().getName()}">三角電機</td>
+                <td th:text="${product.getName()}">SR-IKJ-01</td>
+                <td th:text="${product.getDescription()}">いい感じの冷蔵庫です</td>
+            </tr>
+            </tbody>
+        </table>
+        <div th:insert="include/paginate"></div>
+
+        <div class="text-center">
+            <a th:href="@{/category/small_index/{parent_id}(parent_id=${category.getParentId()})}" class="btn btn-secondary">戻る</a>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" th:src="@{/js/header.js}"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

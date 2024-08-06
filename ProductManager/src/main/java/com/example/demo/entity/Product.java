@@ -19,8 +19,9 @@ public class Product {
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
 
-    @Column(name = "manufacturer_id")
-    private Long manufacturerId;
+    @ManyToOne
+    @JoinColumn(name = "manufacturer_id", referencedColumnName = "id")
+    private Manufacturer manufacturer;
 
     @Column(name = "name")
     private String name;

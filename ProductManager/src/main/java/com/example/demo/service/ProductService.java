@@ -22,4 +22,14 @@ public interface ProductService {
      * @return 商品情報
      */
     Page<Product> findByManufacturerId(Long manufacturerId, Pageable pageable);
+
+    /**
+     * カテゴリIDに紐づく商品を全件取得
+     * ページネイト対応
+     *
+     * @param categoryId カテゴリID
+     * @param pageable ページネイト
+     * @return 商品情報
+     */
+    Page<Product> findByCategoryId(Long categoryId, Pageable pageable);
 }

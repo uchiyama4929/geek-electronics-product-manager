@@ -1,6 +1,8 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.Category;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -32,6 +34,14 @@ public interface CategoryService {
     List<Long> getSmallCategoryIds(Long largeCategoryId, Long middleCategoryId, Long smallCategoryId);
 
     /**
+     * カテゴリ1件の取得
+     *
+     * @param id カテゴリID
+     * @return カテゴリ情報
+     */
+    Category findById(Long id);
+
+    /**
      * 入力されたカテゴリIDをLong型にキャストする
      *
      * @param categoryId カテゴリID
@@ -47,4 +57,23 @@ public interface CategoryService {
      * @return 上位のカテゴリ、またはnull
      */
     Category getParentCategory(Long id);
+
+    /**
+     * 大分類のカテゴリを全件取得
+     * ページネイト対応
+     *
+     * @param pageable ページネイト
+     * @return 大分類のカテゴリ
+     */
+    Page<Category> findByParentIdIsNull(Pageable pageable);
+
+    /**
+     * 親カテゴリを全件取得
+     * ページネイト対応
+     *
+     * @param parentId 親カテゴリID
+     * @param pageable ページネイト
+     * @return カテゴリ情報
+     */
+    Page<Category> findByParentId(Long parentId, Pageable pageable);
 }

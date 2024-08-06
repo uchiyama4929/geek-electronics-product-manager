@@ -2,6 +2,9 @@ package com.example.demo.service;
 
 import com.example.demo.entity.Category;
 import com.example.demo.repository.CategoryRepository;
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -68,6 +71,14 @@ public class CategoryServiceImpl implements CategoryService {
      * {@inheritDoc}
      */
     @Override
+    public Category findById(Long id) {
+        return categoryRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Category not found"));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Long parseCategoryId(String categoryId) {
         if (categoryId == null || categoryId.trim().isEmpty()) {
             return null;
@@ -91,4 +102,11 @@ public class CategoryServiceImpl implements CategoryService {
         return null;
     }
 
+    public Page<Category> findByParentIdIsNull(Pageable pageable) {
+        return categoryRepository.findByParentIdIsNull(pageable);
+    }
+
+    public Page<Category> findByParentId(Long parentId, Pageable pageable) {
+        return categoryRepository.findByParentId(parentId, pageable);
+    }
 }
