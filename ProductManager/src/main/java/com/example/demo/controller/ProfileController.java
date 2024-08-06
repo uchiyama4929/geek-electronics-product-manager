@@ -121,7 +121,7 @@ public class ProfileController {
         managerForm.setPositionId(valueOf(manager.getPosition().getId()));
         managerForm.setPermissionId(valueOf(manager.getPermission().getId()));
 
-        Manager updatedManager = managerService.saveManager(managerForm);
+        Manager updatedManager = managerService.save(managerForm);
 
 
         UserDetails updatedUserDetails = new User(

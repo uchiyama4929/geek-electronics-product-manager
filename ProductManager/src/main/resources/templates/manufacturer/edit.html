@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>店舗情報編集画面</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/btn.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/manufacturer/edit.css}">
+</head>
+<body>
+<div th:insert="include/header"></div>
+<div class="container">
+    <div class="row contents">
+        <div class="col-lg-8 offset-lg-2 content">
+            <h2 class="text-center mb-4">メーカ名編集</h2>
+            <form th:action="@{/manufacturer/edit/{id}(id=${manufacturer.id})}" method="post" novalidate th:object="${manufacturerForm}">
+                <input type="hidden" th:field="*{id}">
+                <div class="form-group">
+                    <label for="name">メーカ名</label>
+                    <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="メーカ名を入力">
+                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red"></span>
+                </div>
+                <div class="text-center mt-5">
+                    <a th:href="@{/manufacturer/detail/{id}(id=${manufacturer.id})}" class="btn btn-secondary">戻る</a>
+                    <button class="btn btn-green">更新</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" th:src="@{/js/header.js}"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

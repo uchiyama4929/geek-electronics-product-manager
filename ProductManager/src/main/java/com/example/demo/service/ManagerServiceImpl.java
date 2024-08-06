@@ -40,12 +40,12 @@ public class ManagerServiceImpl implements ManagerService {
      * {@inheritDoc}
      */
     @Override
-    public Manager saveManager(ManagerForm managerForm) {
+    public Manager save(ManagerForm managerForm) {
         Manager manager;
 
         if (managerForm.getId() != null) {
             // editの場合
-            manager = managerRepository.findById(Integer.valueOf(managerForm.getId())).orElseThrow(() -> new IllegalArgumentException("Invalid contact id: " + managerForm.getId()));
+            manager = managerRepository.findById(Long.valueOf(managerForm.getId())).orElseThrow(() -> new IllegalArgumentException("Invalid contact id: " + managerForm.getId()));
             manager.setUpdatedAt(new Date());
             if (!Objects.equals(managerForm.getPassword(), "")) {
                 String hashedPassword = hashPassword(managerForm.getPassword());
@@ -94,7 +94,7 @@ public class ManagerServiceImpl implements ManagerService {
      */
     @Override
     public Manager findById(Long id) {
-        return managerRepository.findById(id.intValue()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found"));
+        return managerRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found"));
     }
 
     /**

@@ -113,7 +113,7 @@ public class StoreController {
         }
 
         storeForm.setId(manager.getStore().getId());
-        storeService.saveStore(storeForm);
+        storeService.save(storeForm);
 
         return "redirect:/store/detail";
     }

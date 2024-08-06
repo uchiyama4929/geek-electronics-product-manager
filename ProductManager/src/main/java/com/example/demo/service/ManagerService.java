@@ -15,7 +15,7 @@ public interface ManagerService {
      * @param ManagerForm view変数
      * @return 登録対象の管理者情報
      */
-    Manager saveManager(ManagerForm ManagerForm);
+    Manager save(ManagerForm ManagerForm);
 
     /**
      * パスワードの暗号化処理

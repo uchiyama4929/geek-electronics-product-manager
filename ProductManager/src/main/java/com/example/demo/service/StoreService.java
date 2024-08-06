@@ -27,5 +27,5 @@ public interface StoreService {
      * @param storeForm 店舗情報
      * @return 更新後のデータ
      */
-    Store saveStore(StoreForm storeForm);
+    Store save(StoreForm storeForm);
 }

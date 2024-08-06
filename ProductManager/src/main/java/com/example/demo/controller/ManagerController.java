@@ -109,10 +109,11 @@ public class ManagerController {
             model.addAttribute("selectedPositionId", ManagerForm.getPositionId());
             model.addAttribute("selectedPermissionId", ManagerForm.getPermissionId());
             model.addAttribute("ManagerForm", ManagerForm);
+            model.addAttribute("errors", bindingResult.getAllErrors());
             return "manager/create";
         }
 
-        Manager manager = managerService.saveManager(ManagerForm);
+        managerService.save(ManagerForm);
         return "redirect:/manager/index";
     }
 
@@ -175,6 +176,7 @@ public class ManagerController {
             model.addAttribute("positions", positions);
             model.addAttribute("permissions", permissions);
             model.addAttribute("ManagerForm", managerForm);
+            model.addAttribute("errors", bindingResult.getAllErrors());
             return "/manager/edit";
         }
 
@@ -197,7 +199,7 @@ public class ManagerController {
         String id = managerForm.getId();
         redirectAttributes.addAttribute("id", id);
 
-        Manager manager = managerService.saveManager(managerForm);
+        Manager manager = managerService.save(managerForm);
 
         if (manager.getId().equals(currentManager.getId())) {
 

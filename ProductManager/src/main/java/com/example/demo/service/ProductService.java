@@ -1,9 +1,9 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.Product;
-import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-@Service
 public interface ProductService {
     /**
      * 商品情報1件の取得
@@ -12,4 +12,14 @@ public interface ProductService {
      * @return 商品情報
      */
     Product findById(Long product_id);
+
+    /**
+     * メーカーIDに紐づく商品を全件取得
+     * ページネイト対応
+     *
+     * @param manufacturerId メーカーID
+     * @param pageable ページネイト
+     * @return 商品情報
+     */
+    Page<Product> findByManufacturerId(Long manufacturerId, Pageable pageable);
 }
