@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.controller.web;
 
 import com.example.demo.entity.*;
 import com.example.demo.form.LoginForm;

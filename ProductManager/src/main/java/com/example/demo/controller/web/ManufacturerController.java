@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.controller.web;
 
 import jakarta.validation.Valid;
 import com.example.demo.entity.*;

@@ -1,9 +1,8 @@
-package com.example.demo.controller;
+package com.example.demo.controller.web;
 
 import com.example.demo.entity.Manager;
 import com.example.demo.form.ManagerForm;
 import com.example.demo.service.ManagerService;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -90,8 +89,7 @@ public class ProfileController {
     public String edit(
             Model model,
             @Valid @ModelAttribute("managerForm") ManagerForm managerForm,
-            BindingResult bindingResult,
-            HttpSession session
+            BindingResult bindingResult
     ) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
