@@ -20,6 +20,7 @@ public class ProductServiceImpl implements ProductService {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Product findById(Long product_id) {
         return productRepository.findById(product_id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found"));
     }

@@ -62,6 +62,10 @@ public class OrderServiceImpl implements OrderService {
         return order;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Page<Order> findByStoreId(Long storeId, Pageable pageable) {
         return orderRepository.findByStoreId(storeId, pageable);
     }

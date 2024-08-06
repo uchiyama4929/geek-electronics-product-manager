@@ -27,6 +27,7 @@ public class StoreServiceImpl implements StoreService {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Store findById(Long id) {
         return storeRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found"));
     }
@@ -34,7 +35,8 @@ public class StoreServiceImpl implements StoreService {
     /**
      * {@inheritDoc}
      */
-    public Store saveStore(StoreForm storeForm) {
+    @Override
+    public Store save(StoreForm storeForm) {
         Store store = storeRepository.findById(storeForm.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found"));
         store.setId(storeForm.getId());
         store.setName(storeForm.getName());

@@ -22,6 +22,7 @@ public class ProductStoreServiceImpl implements ProductStoreService {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Page<ProductStoreDTO> getProductStoreInfo(Long storeId, String keyword, List<Long> categoryIds, Pageable pageable) {
         return productStoreRepository.findProductStoreInfo(storeId, keyword, categoryIds, pageable);
     }
@@ -29,6 +30,7 @@ public class ProductStoreServiceImpl implements ProductStoreService {
     /**
      * {@inheritDoc}
      */
+    @Override
     public ProductStoreDTO findByIdAndStoreId(Long id, Long storeId) {
         return productStoreRepository.findByIdAndStoreId(id, storeId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found"));
     }

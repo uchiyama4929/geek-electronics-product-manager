@@ -19,6 +19,9 @@ public class ProductStoreRepositoryImpl implements ProductStoreRepositoryCustom 
     @PersistenceContext
     private EntityManager entityManager;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Page<ProductStoreDTO> findProductStoreInfo(Long storeId, String keyword, List<Long> categoryIds, Pageable pageable) {
         StringBuilder jpql = getStringBuilder(keyword, categoryIds);
@@ -45,6 +48,9 @@ public class ProductStoreRepositoryImpl implements ProductStoreRepositoryCustom 
         return new PageImpl<>(resultList, pageable, totalRows);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<ProductStoreDTO> findByIdAndStoreId(Long id, Long storeId) {
         String jpql = "SELECT new com.example.demo.dto.ProductStoreDTO(ps.priceId, ps.stockId, p, s, ps.salePrice, ps.stockQuantity, ps.priceCreatedAt, ps.stockCreatedAt, ps.priceUpdatedAt, ps.stockUpdatedAt) FROM ProductStore ps JOIN ps.product p JOIN ps.store s WHERE s.id = :storeId AND p.id = :productId";
@@ -60,6 +66,9 @@ public class ProductStoreRepositoryImpl implements ProductStoreRepositoryCustom 
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     private static StringBuilder getStringBuilder(String keyword, List<Long> categoryIds) {
         StringBuilder jpql = new StringBuilder();
         jpql.append("SELECT new com.example.demo.dto.ProductStoreDTO(ps.priceId, ps.stockId, p, s, ps.salePrice, ps.stockQuantity, ps.priceCreatedAt, ps.stockCreatedAt, ps.priceUpdatedAt, ps.stockUpdatedAt) ");

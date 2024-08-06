@@ -18,6 +18,7 @@ public class CategoryServiceImpl implements CategoryService {
     /**
      * {@inheritDoc}
      */
+    @Override
     public List<Category> getAllLargeCategories() {
         return categoryRepository.findByParentIdIsNull();
     }
@@ -25,6 +26,7 @@ public class CategoryServiceImpl implements CategoryService {
     /**
      * {@inheritDoc}
      */
+    @Override
     public List<Category> getSubCategories(Long parentId) {
         return categoryRepository.findByParentId(parentId);
     }
@@ -32,6 +34,7 @@ public class CategoryServiceImpl implements CategoryService {
     /**
      * {@inheritDoc}
      */
+    @Override
     public List<Long> getSmallCategoryIds(Long largeCategoryId, Long middleCategoryId, Long smallCategoryId) {
         List<Long> categoryIds = new ArrayList<>();
 
@@ -64,6 +67,7 @@ public class CategoryServiceImpl implements CategoryService {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Long parseCategoryId(String categoryId) {
         if (categoryId == null || categoryId.trim().isEmpty()) {
             return null;
@@ -78,6 +82,7 @@ public class CategoryServiceImpl implements CategoryService {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Category getParentCategory(Long id) {
         Category category = categoryRepository.findById(id).orElse(null);
         if (category != null && category.getParentId() != null) {

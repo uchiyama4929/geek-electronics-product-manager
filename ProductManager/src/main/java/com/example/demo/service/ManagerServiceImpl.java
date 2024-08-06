@@ -84,6 +84,7 @@ public class ManagerServiceImpl implements ManagerService {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Page<Manager> findAll(Pageable pageable) {
         return managerRepository.findAll(pageable);
     }
@@ -91,10 +92,15 @@ public class ManagerServiceImpl implements ManagerService {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Manager findById(Long id) {
         return managerRepository.findById(id.intValue()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found"));
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Manager findByEmail(String email) {
         return managerRepository.findByEmail(email);
     }

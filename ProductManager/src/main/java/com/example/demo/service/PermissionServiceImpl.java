@@ -17,6 +17,7 @@ public class PermissionServiceImpl implements PermissionService {
     /**
      * {@inheritDoc}
      */
+    @Override
     public List<Permission> findAll() {
         return permissionRepository.findAll();
     }

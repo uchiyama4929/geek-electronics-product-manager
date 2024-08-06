@@ -17,6 +17,7 @@ public class PositionServiceImpl implements PositionService {
     /**
      * {@inheritDoc}
      */
+    @Override
     public List<Position> findAll() {
         return positionRepository.findAll();
     }
