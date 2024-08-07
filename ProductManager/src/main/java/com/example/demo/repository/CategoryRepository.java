@@ -16,6 +16,7 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
      * @return 大カテゴリ
      */
     List<Category> findByParentIdIsNull();
+
     Page<Category> findByParentIdIsNull(Pageable pageable);
 
     /**
@@ -25,5 +26,6 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
      * @return 直下のカテゴリ一覧
      */
     List<Category> findByParentId(Long parentId);
+
     Page<Category> findByParentId(Long parentId, Pageable pageable);
 }

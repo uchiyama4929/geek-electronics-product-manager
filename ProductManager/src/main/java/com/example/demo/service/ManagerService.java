@@ -2,8 +2,6 @@ package com.example.demo.service;
 
 import com.example.demo.entity.Manager;
 import com.example.demo.form.ManagerForm;
-import jakarta.servlet.http.HttpSession;
-import com.example.demo.form.LoginForm;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

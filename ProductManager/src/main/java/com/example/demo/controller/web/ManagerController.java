@@ -20,11 +20,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import com.example.demo.service.ManagerService;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Collections;
 import java.util.List;
+
 import static java.lang.String.valueOf;
 
 
@@ -51,12 +51,11 @@ public class ManagerController {
     /**
      * ログイン画面初期表示
      *
-     * @param model   view変数
-     * @param request リクエスト
+     * @param model view変数
      * @return ログイン画面
      */
     @GetMapping("/login")
-    public String login(Model model, HttpServletRequest request) {
+    public String login(Model model) {
         model.addAttribute("loginForm", new LoginForm());
         return "log_in";
     }
@@ -137,15 +136,7 @@ public class ManagerController {
         List<Position> positions = positionService.findAll();
         List<Permission> permissions = permissionService.findAll();
 
-        ManagerForm managerForm = new ManagerForm();
-        managerForm.setId(valueOf(manager.getId()));
-        managerForm.setStoreId(valueOf(manager.getStore().getId()));
-        managerForm.setPositionId(valueOf(manager.getPosition().getId()));
-        managerForm.setPermissionId(valueOf(manager.getPermission().getId()));
-        managerForm.setLastName(manager.getLastName());
-        managerForm.setFirstName(manager.getFirstName());
-        managerForm.setEmail(manager.getEmail());
-        managerForm.setPhoneNumber(manager.getPhoneNumber());
+        ManagerForm managerForm = getManagerForm(manager);
 
         model.addAttribute("stores", stores);
         model.addAttribute("manager", manager);
@@ -156,6 +147,19 @@ public class ManagerController {
         return "/manager/edit";
     }
 
+    private static ManagerForm getManagerForm(Manager manager) {
+        ManagerForm managerForm = new ManagerForm();
+        managerForm.setId(valueOf(manager.getId()));
+        managerForm.setStoreId(valueOf(manager.getStore().getId()));
+        managerForm.setPositionId(valueOf(manager.getPosition().getId()));
+        managerForm.setPermissionId(valueOf(manager.getPermission().getId()));
+        managerForm.setLastName(manager.getLastName());
+        managerForm.setFirstName(manager.getFirstName());
+        managerForm.setEmail(manager.getEmail());
+        managerForm.setPhoneNumber(manager.getPhoneNumber());
+        return managerForm;
+    }
+
 
     @PostMapping("/manager/edit")
     public String edit(
@@ -163,7 +167,7 @@ public class ManagerController {
             BindingResult bindingResult,
             Model model,
             RedirectAttributes redirectAttributes
-    ){
+    ) {
         if (bindingResult.hasErrors()) {
             List<Store> stores = storeService.findAll();
             List<Position> positions = positionService.findAll();
@@ -203,24 +207,28 @@ public class ManagerController {
 
         if (manager.getId().equals(currentManager.getId())) {
 
-            UserDetails updatedUserDetails = new User(
-                    manager.getEmail(),
-                    manager.getPassword(),
-                    true,
-                    true,
-                    true,
-                    true,
-                    Collections.singleton(new SimpleGrantedAuthority(manager.getPermission().getName()))
-            );
-
-            Authentication newAuth = new UsernamePasswordAuthenticationToken(
-                    updatedUserDetails,
-                    updatedUserDetails.getPassword(),
-                    updatedUserDetails.getAuthorities());
+            Authentication newAuth = getAuthentication(manager);
 
             SecurityContextHolder.getContext().setAuthentication(newAuth);
         }
 
         return "redirect:/manager/detail/{id}";
+    }
+
+    private static Authentication getAuthentication(Manager manager) {
+        UserDetails updatedUserDetails = new User(
+                manager.getEmail(),
+                manager.getPassword(),
+                true,
+                true,
+                true,
+                true,
+                Collections.singleton(new SimpleGrantedAuthority(manager.getPermission().getName()))
+        );
+
+        return new UsernamePasswordAuthenticationToken(
+                updatedUserDetails,
+                updatedUserDetails.getPassword(),
+                updatedUserDetails.getAuthorities());
     }
 }

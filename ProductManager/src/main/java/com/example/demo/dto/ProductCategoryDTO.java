@@ -1,6 +1,6 @@
 package com.example.demo.dto;
 
-public record ProductCategoryDTO (
+public record ProductCategoryDTO(
         String productName,
         String productDescription,
         Long costPrice,

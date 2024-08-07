@@ -60,7 +60,7 @@ public class ManufacturerController {
             return "manufacturer/create";
         }
 
-        Manufacturer manufacturer = manufacturerService.save(manufacturerForm);
+        manufacturerService.save(manufacturerForm);
         return "redirect:/manufacturer/index";
     }
 
@@ -110,7 +110,7 @@ public class ManufacturerController {
             model.addAttribute("errors", bindingResult.getAllErrors());
             return "/manufacturer/edit";
         }
-        Manufacturer manufacturer = manufacturerService.save(manufacturerForm);
+        manufacturerService.save(manufacturerForm);
         redirectAttributes.addAttribute("id", id);
 
         return "redirect:/manufacturer/detail/{id}";

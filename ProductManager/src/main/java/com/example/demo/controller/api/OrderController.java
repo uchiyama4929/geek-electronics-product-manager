@@ -5,7 +5,6 @@ import com.example.demo.entity.Order;
 import com.example.demo.form.OrderForm;
 import com.example.demo.service.ManagerService;
 import com.example.demo.service.OrderService;
-import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -33,8 +32,7 @@ public class OrderController {
     @Transactional
     public ResponseEntity<Order> createOrder(
             @Validated @RequestBody OrderForm orderForm,
-            BindingResult bindingResult,
-            HttpSession session
+            BindingResult bindingResult
     ) {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().build();

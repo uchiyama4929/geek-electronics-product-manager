@@ -15,7 +15,6 @@ import java.io.Serializable;
 @Data
 @FieldMatch(first = "password", second = "passwordConfirmation", message = "パスワードが確認用と一致しません。")
 public class ManagerForm implements Serializable {
-
     private String id;
 
     @NotBlank

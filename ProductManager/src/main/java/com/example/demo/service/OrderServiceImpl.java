@@ -7,6 +7,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 import java.util.Date;
 
 @Service
@@ -52,7 +53,7 @@ public class OrderServiceImpl implements OrderService {
         order.setUpdatedAt(new Date());
         orderRepository.save(order);
 
-        ProductStock productStock = productStockRepository.findByProductId(orderProductId);
+        ProductStock productStock = productStockRepository.findByProductIdAndStoreId(orderProductId, store.getId());
         if (productStock != null) {
             productStock.setStockQuantity(productStock.getStockQuantity() + Long.parseLong(orderQuantity));
             productStockRepository.save(productStock);

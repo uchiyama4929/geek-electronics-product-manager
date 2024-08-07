@@ -22,7 +22,7 @@ public interface ProductService {
      * ページネイト対応
      *
      * @param manufacturerId メーカーID
-     * @param pageable ページネイト
+     * @param pageable       ページネイト
      * @return 商品情報
      */
     Page<Product> findByManufacturerId(Long manufacturerId, Pageable pageable);
@@ -32,32 +32,37 @@ public interface ProductService {
      * ページネイト対応
      *
      * @param categoryId カテゴリID
-     * @param pageable ページネイト
+     * @param pageable   ページネイト
      * @return 商品情報
      */
     Page<Product> findByCategoryId(Long categoryId, Pageable pageable);
 
     /**
+     * 1店舗分の商品情報を取得
+     * フリーワード検索とカテゴリの指定が可能
+     * ページネイト対応済み
      *
-     * @param storeId
-     * @param keyword
-     * @param categoryIds
-     * @param pageable
-     * @return
+     * @param storeId     店舗ID
+     * @param keyword     検索フリーワード
+     * @param categoryIds カテゴリID
+     * @param pageable    ページ数
+     * @return 商品情報
      */
     Page<ProductStoreDTO> getProductStoreInfo(Long storeId, String keyword, List<Long> categoryIds, Pageable pageable);
 
     /**
+     * 商品情報1件と店舗の販売価格、在庫数を取得する
      *
-     * @param id
-     * @param storeId
-     * @return
+     * @param id 商品ID
+     * @param storeId   店舗ID
+     * @return 商品情報
      */
     ProductStoreDTO findByIdAndStoreId(Long id, Long storeId);
 
     /**
+     * 商品情報を全件取得
      *
-     * @return
+     * @return 商品情報
      */
     List<ProductCategoryDTO> findAllProductStoreInfo();
 }
