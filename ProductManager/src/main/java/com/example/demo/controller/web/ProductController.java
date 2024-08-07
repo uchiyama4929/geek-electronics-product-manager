@@ -6,7 +6,7 @@ import com.example.demo.entity.Manager;
 import com.example.demo.form.CategoryForm;
 import com.example.demo.service.CategoryService;
 import com.example.demo.service.ManagerService;
-import com.example.demo.service.ProductStoreService;
+import com.example.demo.service.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,17 +25,17 @@ import java.util.List;
 @RequestMapping("/product")
 public class ProductController {
 
-    private final ProductStoreService productStoreService;
+    private final ProductService productService;
     private final CategoryService categoryService;
     private final ManagerService managerService;
     private static final int PAGE_SIZE = 12;
 
     public ProductController(
-            ProductStoreService productStoreService,
+            ProductService productService,
             CategoryService categoryService,
             ManagerService managerService
     ) {
-        this.productStoreService = productStoreService;
+        this.productService = productService;
         this.categoryService = categoryService;
         this.managerService = managerService;
     }
@@ -64,7 +64,7 @@ public class ProductController {
         }
 
         if (bindingResult.hasErrors()) {
-            Page<ProductStoreDTO> productStoreDtoList = productStoreService.getProductStoreInfo(storeId, null, null, PageRequest.of(page, PAGE_SIZE));
+            Page<ProductStoreDTO> productStoreDtoList = productService.getProductStoreInfo(storeId, null, null, PageRequest.of(page, PAGE_SIZE));
             List<Category> largeCategories = categoryService.getAllLargeCategories();
 
             model.addAttribute("productStoreDtoList", productStoreDtoList);
@@ -81,7 +81,7 @@ public class ProductController {
         List<Long> targetCategory = categoryService.getSmallCategoryIds(inputLargeCategory, inputMiddleCategory, inputSmallCategory);
 
         String keyword = categoryForm.getKeyword();
-        Page<ProductStoreDTO> productStoreDtoList = productStoreService.getProductStoreInfo(storeId, keyword, targetCategory, PageRequest.of(page, PAGE_SIZE));
+        Page<ProductStoreDTO> productStoreDtoList = productService.getProductStoreInfo(storeId, keyword, targetCategory, PageRequest.of(page, PAGE_SIZE));
 
         List<Category> largeCategories = categoryService.getAllLargeCategories();
         List<Category> middleCategories = inputLargeCategory != null ? categoryService.getSubCategories(inputLargeCategory) : Collections.emptyList();
@@ -121,7 +121,7 @@ public class ProductController {
             return "redirect:/login";
         }
 
-        ProductStoreDTO productStoreDto = productStoreService.findByIdAndStoreId(id, storeId);
+        ProductStoreDTO productStoreDto = productService.findByIdAndStoreId(id, storeId);
 
         Category middleCategory = categoryService.getParentCategory(productStoreDto.product().getCategory().getId());
         Category largeCategory = categoryService.getParentCategory(middleCategory.getId());

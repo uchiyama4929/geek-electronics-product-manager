@@ -51,7 +51,7 @@ public class CategoryServiceImpl implements CategoryService {
             for (Category category : smallCategories) {
                 categoryIds.add(category.getId());
             }
-            return categoryIds;
+            return categoryIds.isEmpty() ? null : categoryIds;
         }
 
         if (largeCategoryId != null) {
@@ -62,9 +62,10 @@ public class CategoryServiceImpl implements CategoryService {
                     categoryIds.add(smallCategory.getId());
                 }
             }
+            return categoryIds.isEmpty() ? null : categoryIds;
         }
 
-        return categoryIds;
+        return null;
     }
 
     /**

@@ -25,11 +25,12 @@ public interface CategoryService {
     /**
      * 検索対象のカテゴリの一覧を取得する。
      * 大カテゴリのみが指定された場合も対象の小カテゴリの一覧を取得できる。
+     * カテゴリが1件も指定されない場合はnullを返却する
      *
      * @param largeCategoryId  大カテゴリID
      * @param middleCategoryId 中カテゴリID
      * @param smallCategoryId  小カテゴリID
-     * @return 小カテゴリのリスト
+     * @return 小カテゴリのリスト または null
      */
     List<Long> getSmallCategoryIds(Long largeCategoryId, Long middleCategoryId, Long smallCategoryId);
 

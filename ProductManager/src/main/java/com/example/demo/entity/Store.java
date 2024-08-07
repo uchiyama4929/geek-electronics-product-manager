@@ -27,9 +27,6 @@ public class Store {
     @Column(name = "updated_at")
     private Date updatedAt;
 
-    @OneToMany(mappedBy = "store")
-    private List<ProductStore> productStores;
-
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ProductPrice> productPrices;
 

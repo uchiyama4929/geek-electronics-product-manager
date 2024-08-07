@@ -4,7 +4,7 @@ import com.example.demo.dto.ApiResponseDTO;
 import com.example.demo.dto.ErrorInfoDTO;
 import com.example.demo.dto.ErrorResponseDTO;
 import com.example.demo.dto.ProductCategoryDTO;
-import com.example.demo.service.ProductStoreService;
+import com.example.demo.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,17 +16,17 @@ import java.util.List;
 @RestController
 public class ProductApiController {
 
-    private final ProductStoreService productStoreService;
+    private final ProductService productService;
 
     @Autowired
-    public ProductApiController(ProductStoreService productStoreService) {
-        this.productStoreService = productStoreService;
+    public ProductApiController(ProductService productService) {
+        this.productService = productService;
     }
 
     @GetMapping("/api/products")
     public ResponseEntity<?> products() {
         try {
-            List<ProductCategoryDTO> productStoreDtoList = productStoreService.findAllProductStoreInfo();
+            List<ProductCategoryDTO> productStoreDtoList = productService.findAllProductStoreInfo();
             ApiResponseDTO<ProductCategoryDTO> response = new ApiResponseDTO<>("1", "", productStoreDtoList);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
