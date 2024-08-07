@@ -10,6 +10,7 @@ import com.example.demo.service.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Collections;
 import java.util.List;
@@ -122,6 +124,9 @@ public class ProductController {
         }
 
         ProductStoreDTO productStoreDto = productService.findByIdAndStoreId(id, storeId);
+        if (productStoreDto == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found");
+        }
 
         Category middleCategory = categoryService.getParentCategory(productStoreDto.product().getCategory().getId());
         Category largeCategory = categoryService.getParentCategory(middleCategory.getId());

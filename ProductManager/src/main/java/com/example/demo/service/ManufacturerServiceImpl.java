@@ -36,7 +36,7 @@ public class ManufacturerServiceImpl implements ManufacturerService {
 
         if (manufacturerForm.getId() != null) {
             // editの場合
-            manufacturer = manufacturerRepository.findById(Long.valueOf(manufacturerForm.getId())).orElseThrow(() -> new IllegalArgumentException("Invalid contact id: " + manufacturerForm.getId()));
+            manufacturer = manufacturerRepository.findById(Long.valueOf(manufacturerForm.getId())).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Manufacturer not found"));
             manufacturer.setUpdatedAt(new Date());
         } else {
             // createの場合

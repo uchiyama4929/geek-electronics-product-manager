@@ -29,7 +29,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         }
 
         Collection<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(manager.getPermission().getName()));
+        authorities.add(new SimpleGrantedAuthority(manager.getRole()));
 
         return new org.springframework.security.core.userdetails.User(
                 manager.getEmail(),

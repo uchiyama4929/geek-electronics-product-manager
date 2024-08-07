@@ -2,10 +2,11 @@ package com.example.demo.service;
 
 import com.example.demo.entity.Category;
 import com.example.demo.repository.CategoryRepository;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,7 +74,7 @@ public class CategoryServiceImpl implements CategoryService {
      */
     @Override
     public Category findById(Long id) {
-        return categoryRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Category not found"));
+        return categoryRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found"));
     }
 
     /**

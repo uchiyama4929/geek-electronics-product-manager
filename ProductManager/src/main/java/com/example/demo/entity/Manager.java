@@ -50,4 +50,8 @@ public class Manager {
     public String getFullName() {
         return this.lastName + " " + this.firstName;
     }
+
+    public String getRole() {
+        return permission.getId() == 1 ? "ADMIN" : "USER";
+    }
 }

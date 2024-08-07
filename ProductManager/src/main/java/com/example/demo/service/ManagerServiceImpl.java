@@ -45,7 +45,7 @@ public class ManagerServiceImpl implements ManagerService {
 
         if (managerForm.getId() != null) {
             // editの場合
-            manager = managerRepository.findById(Long.valueOf(managerForm.getId())).orElseThrow(() -> new IllegalArgumentException("Invalid contact id: " + managerForm.getId()));
+            manager = managerRepository.findById(Long.valueOf(managerForm.getId())).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Manager not found"));
             manager.setUpdatedAt(new Date());
             if (!Objects.equals(managerForm.getPassword(), "")) {
                 String hashedPassword = hashPassword(managerForm.getPassword());
@@ -60,9 +60,9 @@ public class ManagerServiceImpl implements ManagerService {
             manager.setPassword(hashedPassword);
         }
 
-        manager.setStore(storeRepository.findById(Long.parseLong(managerForm.getStoreId())).orElseThrow(() -> new EntityNotFoundException("Store not found")));
-        manager.setPosition(positionRepository.findById(Long.parseLong(managerForm.getPositionId())).orElseThrow(() -> new EntityNotFoundException("Position not found")));
-        manager.setPermission(permissionRepository.findById(Long.parseLong(managerForm.getPermissionId())).orElseThrow(() -> new EntityNotFoundException("Permission not found")));
+        manager.setStore(storeRepository.findById(Long.parseLong(managerForm.getStoreId())).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Store not found")));
+        manager.setPosition(positionRepository.findById(Long.parseLong(managerForm.getPositionId())).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Position not found")));
+        manager.setPermission(permissionRepository.findById(Long.parseLong(managerForm.getPermissionId())).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Permission not found")));
 
         manager.setLastName(managerForm.getLastName());
         manager.setFirstName(managerForm.getFirstName());
