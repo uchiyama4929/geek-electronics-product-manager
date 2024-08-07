@@ -37,6 +37,7 @@ public class SecurityConfig {
         http
             .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                 .requestMatchers("/css/**", "/js/**").permitAll()
+                .requestMatchers("/api/**").permitAll() // /api以下のURLを許可
                 .anyRequest().authenticated()
             )
             .formLogin(formLogin -> formLogin

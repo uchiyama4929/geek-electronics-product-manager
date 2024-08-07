@@ -29,4 +29,13 @@ public class Store {
 
     @OneToMany(mappedBy = "store")
     private List<ProductStore> productStores;
+
+    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<ProductPrice> productPrices;
+
+    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<ProductStock> productStocks;
+
+    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Order> orders;
 }

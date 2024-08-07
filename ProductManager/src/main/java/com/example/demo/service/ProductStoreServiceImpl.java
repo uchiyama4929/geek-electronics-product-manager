@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.ProductCategoryDTO;
 import com.example.demo.dto.ProductStoreDTO;
 import com.example.demo.repository.ProductStoreRepository;
 import org.springframework.data.domain.Page;
@@ -35,4 +36,11 @@ public class ProductStoreServiceImpl implements ProductStoreService {
         return productStoreRepository.findByIdAndStoreId(id, storeId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found"));
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<ProductCategoryDTO> findAllProductStoreInfo() {
+        return productStoreRepository.findAllProductStoreInfo();
+    }
 }

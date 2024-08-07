@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.stores.StoreDTO;
 import com.example.demo.entity.Store;
 import com.example.demo.form.StoreForm;
 
@@ -28,4 +29,11 @@ public interface StoreService {
      * @return 更新後のデータ
      */
     Store save(StoreForm storeForm);
+
+    /**
+     * api/stores用のデータを取得しDTOクラスを返却する
+     *
+     * @return StoreDTO
+     */
+    List<StoreDTO> findAllStoreInfo();
 }

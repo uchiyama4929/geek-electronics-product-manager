@@ -1,11 +1,11 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.ProductCategoryDTO;
 import com.example.demo.dto.ProductStoreDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface ProductStoreService {
     /**
@@ -29,4 +29,11 @@ public interface ProductStoreService {
      * @return 商品情報
      */
     ProductStoreDTO findByIdAndStoreId(Long id, Long storeId);
+
+    /**
+     * 商品情報を全件取得
+     *
+     * @return 商品情報
+     */
+    List<ProductCategoryDTO> findAllProductStoreInfo();
 }
