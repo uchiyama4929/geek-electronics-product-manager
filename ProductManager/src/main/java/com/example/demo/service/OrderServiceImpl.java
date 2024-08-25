@@ -42,6 +42,12 @@ public class OrderServiceImpl implements OrderService {
         Manager manager = managerService.findById(managerId);
         Store store = storeService.findById(storeId);
 
+
+        ProductStock productStock = productStockRepository.findByProductIdAndStoreId(orderProductId, store.getId());
+        if (productStock == null) {
+            throw new RuntimeException("Product stock not found");
+        }
+
         Long costPrice = product.getCostPrice();
         Order order = new Order();
         order.setProduct(product);
@@ -53,13 +59,9 @@ public class OrderServiceImpl implements OrderService {
         order.setUpdatedAt(new Date());
         orderRepository.save(order);
 
-        ProductStock productStock = productStockRepository.findByProductIdAndStoreId(orderProductId, store.getId());
-        if (productStock != null) {
-            productStock.setStockQuantity(productStock.getStockQuantity() + Long.parseLong(orderQuantity));
-            productStockRepository.save(productStock);
-        } else {
-            throw new RuntimeException("Product not found: " + orderProductId);
-        }
+        productStock.setStockQuantity(productStock.getStockQuantity() + Long.parseLong(orderQuantity));
+        productStockRepository.save(productStock);
+
         return order;
     }
 

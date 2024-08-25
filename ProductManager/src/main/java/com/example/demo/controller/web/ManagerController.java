@@ -57,7 +57,7 @@ public class ManagerController {
     @GetMapping("/login")
     public String login(Model model) {
         model.addAttribute("loginForm", new LoginForm());
-        return "log_in";
+        return "/log_in";
     }
 
     @GetMapping("/manager/index")
@@ -109,7 +109,7 @@ public class ManagerController {
             model.addAttribute("selectedPermissionId", ManagerForm.getPermissionId());
             model.addAttribute("ManagerForm", ManagerForm);
             model.addAttribute("errors", bindingResult.getAllErrors());
-            return "manager/create";
+            return "/manager/create";
         }
 
         managerService.save(ManagerForm);
@@ -145,19 +145,6 @@ public class ManagerController {
         model.addAttribute("ManagerForm", managerForm);
 
         return "/manager/edit";
-    }
-
-    private static ManagerForm getManagerForm(Manager manager) {
-        ManagerForm managerForm = new ManagerForm();
-        managerForm.setId(valueOf(manager.getId()));
-        managerForm.setStoreId(valueOf(manager.getStore().getId()));
-        managerForm.setPositionId(valueOf(manager.getPosition().getId()));
-        managerForm.setPermissionId(valueOf(manager.getPermission().getId()));
-        managerForm.setLastName(manager.getLastName());
-        managerForm.setFirstName(manager.getFirstName());
-        managerForm.setEmail(manager.getEmail());
-        managerForm.setPhoneNumber(manager.getPhoneNumber());
-        return managerForm;
     }
 
 
@@ -230,5 +217,18 @@ public class ManagerController {
                 updatedUserDetails,
                 updatedUserDetails.getPassword(),
                 updatedUserDetails.getAuthorities());
+    }
+
+    private static ManagerForm getManagerForm(Manager manager) {
+        ManagerForm managerForm = new ManagerForm();
+        managerForm.setId(valueOf(manager.getId()));
+        managerForm.setStoreId(valueOf(manager.getStore().getId()));
+        managerForm.setPositionId(valueOf(manager.getPosition().getId()));
+        managerForm.setPermissionId(valueOf(manager.getPermission().getId()));
+        managerForm.setLastName(manager.getLastName());
+        managerForm.setFirstName(manager.getFirstName());
+        managerForm.setEmail(manager.getEmail());
+        managerForm.setPhoneNumber(manager.getPhoneNumber());
+        return managerForm;
     }
 }

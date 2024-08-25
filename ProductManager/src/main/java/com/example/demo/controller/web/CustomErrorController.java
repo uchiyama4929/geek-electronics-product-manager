@@ -19,17 +19,13 @@ public class CustomErrorController implements ErrorController {
             int statusCode = Integer.parseInt(status.toString());
 
             if (statusCode == HttpStatus.FORBIDDEN.value()) {
-                return "error/403";
+                return "/error/403";
             }
 
             if (statusCode == HttpStatus.NOT_FOUND.value()) {
-                return "error/404";
+                return "/error/404";
             }
         }
-        return "error/500";
-    }
-
-    public String getErrorPath() {
-        return "/error";
+        return "/error/500";
     }
 }

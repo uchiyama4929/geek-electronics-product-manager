@@ -98,8 +98,8 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category getParentCategory(Long id) {
         Category category = categoryRepository.findById(id).orElse(null);
-        if (category != null && category.getParentId() != null) {
-            return categoryRepository.findById(category.getParentId()).orElse(null);
+        if (category != null && category.getParent().getId() != null) {
+            return categoryRepository.findById(category.getParent().getId()).orElse(null);
         }
         return null;
     }

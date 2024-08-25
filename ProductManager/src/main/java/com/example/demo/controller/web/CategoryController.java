@@ -42,7 +42,7 @@ public class CategoryController {
         model.addAttribute("largeCategories", largeCategories);
         model.addAttribute("pageName", "/category/large_index");
         model.addAttribute("pageObject", largeCategories);
-        return "category/large_index";
+        return "/category/large_index";
     }
 
     @GetMapping("/middle_index/{parent_id}")
@@ -58,7 +58,7 @@ public class CategoryController {
         model.addAttribute("pageName", "/category/middle_index");
         model.addAttribute("pageObject", middleCategories);
 
-        return "category/middle_index";
+        return "/category/middle_index";
     }
 
     @GetMapping("/small_index/{parent_id}")
@@ -74,7 +74,7 @@ public class CategoryController {
         model.addAttribute("pageName", "/category/small_index");
         model.addAttribute("pageObject", smallCategories);
 
-        return "category/small_index";
+        return "/category/small_index";
     }
 
     @GetMapping("/small_detail/{id}")
@@ -91,6 +91,6 @@ public class CategoryController {
         model.addAttribute("products", products);
         model.addAttribute("pageObject", products);
 
-        return "category/small_detail";
+        return "/category/small_detail";
     }
 }

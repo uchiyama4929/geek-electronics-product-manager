@@ -57,7 +57,7 @@ public class ManufacturerController {
         if (bindingResult.hasErrors()) {
             model.addAttribute("ManufacturerForm", manufacturerForm);
             model.addAttribute("errors", bindingResult.getAllErrors());
-            return "manufacturer/create";
+            return "/manufacturer/create";
         }
 
         manufacturerService.save(manufacturerForm);

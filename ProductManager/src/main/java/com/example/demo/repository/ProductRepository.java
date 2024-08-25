@@ -65,6 +65,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
      *
      * @return 商品情報
      */
-    @Query("SELECT new com.example.demo.dto.ProductCategoryDTO(p.name, p.description, p.costPrice, p.retailPrice, ml.name, mm.name, ms.name) FROM Product p LEFT JOIN Category ms ON ms.id = p.category.id LEFT JOIN Category mm ON mm.id = ms.parentId LEFT JOIN Category ml ON ml.id = mm.parentId")
+@Query("SELECT new com.example.demo.dto.ProductCategoryDTO(p.name, p.description, p.costPrice, p.retailPrice, ml.name, mm.name, ms.name) FROM Product p LEFT JOIN p.category ms LEFT JOIN ms.parent mm LEFT JOIN mm.parent ml")
     List<ProductCategoryDTO> findAllProductStoreInfo();
 }

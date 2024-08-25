@@ -2,11 +2,13 @@ package com.example.demo.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 
 import java.util.Date;
 
 @Entity
 @Data
+@ToString
 @Table(name = "t_managers")
 public class Manager {
     @Id
@@ -14,14 +16,17 @@ public class Manager {
     @Column(name = "id")
     private Long id;
 
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "store_id", referencedColumnName = "id")
     private Store store;
 
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "position_id", referencedColumnName = "id")
     private Position position;
 
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "permission_id", referencedColumnName = "id")
     private Permission permission;

@@ -51,7 +51,7 @@ function completeOrder() {
             if (!response.ok) {
                 throw new Error('エラーが発生しました。');
             }
-            return response.json();
+            return response;
         })
         .then(data => {
             $('#confirmOrderModal').modal('hide');
