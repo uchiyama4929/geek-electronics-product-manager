@@ -88,7 +88,7 @@ public class StoreController {
     @PostMapping("/edit")
     public String edit(
             Model model,
-            @Valid @ModelAttribute("storeForm") StoreForm storeForm,
+            @Valid @ModelAttribute("StoreForm") StoreForm storeForm,
             BindingResult bindingResult
     ) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -107,9 +107,8 @@ public class StoreController {
         }
 
         if (bindingResult.hasErrors()) {
-            model.addAttribute("storeForm", storeForm);
-            model.addAttribute("errors", bindingResult.getAllErrors());
-            return "/profile/edit";
+            model.addAttribute("StoreForm", storeForm);
+            return "/store/edit";
         }
 
         storeForm.setId(manager.getStore().getId());

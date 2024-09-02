@@ -19,11 +19,6 @@
                 <input type="hidden" th:field="*{storeId}">
                 <input type="hidden" th:field="*{positionId}">
                 <input type="hidden" th:field="*{permissionId}">
-                <div>
-                    <ul>
-                        <li th:each="error : ${errors}" th:text="${error.defaultMessage}">Error message</li>
-                    </ul>
-                </div>
                 <div class="form-group">
                     <label for="store-name">店舗名</label>
                     <select class="form-control" id="store-name" disabled>

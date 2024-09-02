@@ -24,6 +24,7 @@
                                 th:text="${store.getName()}"
                                 th:selected="${store.getId() == selectedStoreId}"></option>
                     </select>
+                    <span th:if="${#fields.hasErrors('storeId')}" th:errors="*{storeId}" style="color: red"></span>
                 </div>
                 <div class="form-group">
                     <label for="last_name">姓</label>
@@ -64,7 +65,7 @@
                                 th:text="${position.getName()}"
                                 th:selected="${position.getId() == selectedPositionId}"></option>
                     </select>
-                    <span th:if="${#fields.hasErrors('positionId')}" th:errors="*{positionId}" class="red"></span>
+                    <span th:if="${#fields.hasErrors('positionId')}" th:errors="*{positionId}" style="color: red"></span>
                 </div>
                 <div class="form-group">
                     <label for="permission">権限</label>

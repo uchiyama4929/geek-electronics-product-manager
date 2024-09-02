@@ -70,7 +70,27 @@
                 </div>
             </div>
         </section>
-        <div th:insert="include/paginate"></div>
+        <section class="paginate">
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <li class="page-item" th:classappend="${pageObject.hasPrevious()} ? '' : 'disabled'">
+                        <a class="page-link" th:href="@{${pageName}(page=${pageObject.number - 1},keyword=${keyword},largeCategory=${largeCategoryId},middleCategory=${middleCategoryId},smallCategory=${smallCategoryId},size=${pageObject.size})}" aria-label="Previous">
+                            <span aria-hidden="true">前へ</span>
+                        </a>
+                    </li>
+                    <li class="page-item" th:each="pageNum : ${#numbers.sequence(0, pageObject.totalPages - 1)}" th:classappend="${pageNum == pageObject.number} ? 'active'">
+                        <a class="page-link" th:href="@{${pageName}(page=${pageNum},keyword=${keyword},largeCategory=${largeCategoryId},middleCategory=${middleCategoryId},smallCategory=${smallCategoryId},size=${pageObject.size})}" th:text="${pageNum + 1}">
+                            1
+                        </a>
+                    </li>
+                    <li class="page-item" th:classappend="${pageObject.hasNext()} ? '' : 'disabled'">
+                        <a class="page-link" th:href="@{${pageName}(page=${pageObject.number + 1},keyword=${keyword},largeCategory=${largeCategoryId},middleCategory=${middleCategoryId},smallCategory=${smallCategoryId}, size=${pageObject.size})}" aria-label="Next">
+                            <span aria-hidden="true">次へ</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </section>
     </div>
 </div>
 <script type="text/javascript" th:src="@{/js/error-message.js}"></script>
