@@ -88,7 +88,7 @@ public class ProfileController {
     @PostMapping("/edit")
     public String edit(
             Model model,
-            @Valid @ModelAttribute("managerForm") ManagerForm managerForm,
+            @Valid @ModelAttribute("ManagerForm") ManagerForm managerForm,
             BindingResult bindingResult
     ) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -109,7 +109,6 @@ public class ProfileController {
         if (bindingResult.hasErrors()) {
             model.addAttribute("manager", manager);
             model.addAttribute("ManagerForm", managerForm);
-            model.addAttribute("errors", bindingResult.getAllErrors());
             return "/profile/edit";
         }
 

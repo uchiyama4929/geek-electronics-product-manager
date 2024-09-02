@@ -33,7 +33,7 @@
         <div th:insert="include/paginate"></div>
 
         <div class="text-center">
-            <a th:href="@{/category/middle_index/{parent_id}(parent_id=${middleCategory.getParentId()})}" class="btn btn-secondary">戻る</a>
+            <a th:href="@{/category/middle_index/{parent_id}(parent_id=${middleCategory.getParent().getId()})}" class="btn btn-secondary">戻る</a>
         </div>
     </div>
 </div>

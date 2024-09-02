@@ -46,6 +46,7 @@ public class ManagerForm implements Serializable {
     @Size(min = 10, max = 11)
     private String phoneNumber;
 
+    @NotBlank
     @Size(max = 255, message = "パスワードは255文字以下で入力してください。")
     private String password;
 

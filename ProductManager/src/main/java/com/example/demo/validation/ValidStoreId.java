@@ -10,7 +10,7 @@ import java.lang.annotation.*;
 @Target({ElementType.TYPE, ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidStoreId {
-    String message() default "無効なストアIDです";
+    String message() default "店舗を選択してください";
 
     Class<?>[] groups() default {};
 

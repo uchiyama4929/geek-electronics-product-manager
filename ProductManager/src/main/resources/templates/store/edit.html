@@ -17,11 +17,6 @@
             <h2 class="text-center mb-4">店舗情報編集</h2>
             <form th:action="@{/store/edit}" method="post" novalidate th:object="${StoreForm}">
                 <input type="hidden" th:field="*{id}">
-                <div>
-                    <ul>
-                        <li th:each="error : ${errors}" th:text="${error.defaultMessage}">Error message</li>
-                    </ul>
-                </div>
                 <div class="form-group">
                     <label for="name">店舗名</label>
                     <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="店舗名を入力">

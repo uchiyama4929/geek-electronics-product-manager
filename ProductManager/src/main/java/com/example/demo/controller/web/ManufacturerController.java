@@ -50,13 +50,12 @@ public class ManufacturerController {
 
     @PostMapping("/create")
     public String create(
-            @Valid @ModelAttribute("manufacturerForm") ManufacturerForm manufacturerForm,
+            @Valid @ModelAttribute("ManufacturerForm") ManufacturerForm manufacturerForm,
             BindingResult bindingResult,
             Model model
     ) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("ManufacturerForm", manufacturerForm);
-            model.addAttribute("errors", bindingResult.getAllErrors());
             return "/manufacturer/create";
         }
 
@@ -88,7 +87,7 @@ public class ManufacturerController {
         manufacturerForm.setId(String.valueOf(manufacturer.getId()));
         manufacturerForm.setName(manufacturer.getName());
 
-        model.addAttribute("manufacturerForm", manufacturerForm);
+        model.addAttribute("ManufacturerForm", manufacturerForm);
         model.addAttribute("manufacturer", manufacturer);
 
         return "/manufacturer/edit";
@@ -97,7 +96,7 @@ public class ManufacturerController {
 
     @PostMapping("/edit/{id}")
     public String edit(
-            @Valid @ModelAttribute("manufacturerForm") ManufacturerForm manufacturerForm,
+            @Valid @ModelAttribute("ManufacturerForm") ManufacturerForm manufacturerForm,
             BindingResult bindingResult,
             Model model,
             RedirectAttributes redirectAttributes,
@@ -107,7 +106,6 @@ public class ManufacturerController {
             Manufacturer manufacturer = manufacturerService.findById(Long.valueOf(manufacturerForm.getId()));
             model.addAttribute("manufacturer", manufacturer);
             model.addAttribute("ManufacturerForm", manufacturerForm);
-            model.addAttribute("errors", bindingResult.getAllErrors());
             return "/manufacturer/edit";
         }
         manufacturerService.save(manufacturerForm);

@@ -73,7 +73,6 @@ public class ProductController {
             model.addAttribute("pageObject", productStoreDtoList);
             model.addAttribute("pageName", "/product/index");
             model.addAttribute("largeCategories", largeCategories);
-            model.addAttribute("errors", bindingResult.getAllErrors());
             return "product/index";
         }
 
@@ -98,6 +97,7 @@ public class ProductController {
         model.addAttribute("largeCategoryId", inputLargeCategory);
         model.addAttribute("middleCategoryId", inputMiddleCategory);
         model.addAttribute("smallCategoryId", inputSmallCategory);
+        model.addAttribute("keyword", keyword);
 
         return "product/index";
     }

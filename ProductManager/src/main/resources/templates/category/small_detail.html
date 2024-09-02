@@ -37,7 +37,7 @@
         <div th:insert="include/paginate"></div>
 
         <div class="text-center">
-            <a th:href="@{/category/small_index/{parent_id}(parent_id=${category.getParentId()})}" class="btn btn-secondary">戻る</a>
+            <a th:href="@{/category/small_index/{parent_id}(parent_id=${category.getParent().getId()})}" class="btn btn-secondary">戻る</a>
         </div>
     </div>
 </div>

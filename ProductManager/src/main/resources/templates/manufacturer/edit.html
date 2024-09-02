@@ -15,7 +15,7 @@
     <div class="row contents">
         <div class="col-lg-8 offset-lg-2 content">
             <h2 class="text-center mb-4">メーカ名編集</h2>
-            <form th:action="@{/manufacturer/edit/{id}(id=${manufacturer.id})}" method="post" novalidate th:object="${manufacturerForm}">
+            <form th:action="@{/manufacturer/edit/{id}(id=${manufacturer.id})}" method="post" novalidate th:object="${ManufacturerForm}">
                 <input type="hidden" th:field="*{id}">
                 <div class="form-group">
                     <label for="name">メーカ名</label>

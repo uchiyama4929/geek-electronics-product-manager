@@ -22,8 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import com.example.demo.service.ManagerService;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static java.lang.String.valueOf;
 
@@ -108,7 +107,6 @@ public class ManagerController {
             model.addAttribute("selectedPositionId", ManagerForm.getPositionId());
             model.addAttribute("selectedPermissionId", ManagerForm.getPermissionId());
             model.addAttribute("ManagerForm", ManagerForm);
-            model.addAttribute("errors", bindingResult.getAllErrors());
             return "/manager/create";
         }
 
@@ -150,7 +148,7 @@ public class ManagerController {
 
     @PostMapping("/manager/edit")
     public String edit(
-            @Valid @ModelAttribute("managerForm") ManagerForm managerForm,
+            @Valid @ModelAttribute("ManagerForm") ManagerForm managerForm,
             BindingResult bindingResult,
             Model model,
             RedirectAttributes redirectAttributes
@@ -167,7 +165,6 @@ public class ManagerController {
             model.addAttribute("positions", positions);
             model.addAttribute("permissions", permissions);
             model.addAttribute("ManagerForm", managerForm);
-            model.addAttribute("errors", bindingResult.getAllErrors());
             return "/manager/edit";
         }
 

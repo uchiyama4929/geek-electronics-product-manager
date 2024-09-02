@@ -62,7 +62,7 @@ public class SecurityConfig {
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
             );
 
-        http.addFilterBefore((request, response, chain) -> {
+        http.addFilterAfter((request, response, chain) -> {
             HttpServletRequest httpRequest = (HttpServletRequest) request;
             HttpServletResponse httpResponse = (HttpServletResponse) response;
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
