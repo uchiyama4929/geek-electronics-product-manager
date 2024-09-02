@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>発注履歴</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/btn.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/pagination.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/order/index.css}">
+</head>
+<body><div th:insert="include/header"></div>
+<div class="main">
+    <div class="content">
+        <h2 class="mb-4">発注履歴</h2>
+        <table class="table order-table">
+            <thead>
+            <tr>
+                <th>発注者</th>
+                <th>商品名</th>
+                <th>発注数</th>
+                <th>合計金額</th>
+                <th>発注日時</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="order : ${orders}">
+                <td th:text="${order.getManager().getFullName()}"></td>
+                <td th:text="${order.getProduct().getName()}"></td>
+                <td th:text="${order.getOrderQuantity()}"></td>
+                <td th:text="${order.getTotalAmount()}"></td>
+                <td th:text="${order.getCreatedAt()}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <div th:insert="include/paginate"></div>
+    </div>
+</div>
+<script type="text/javascript" th:src="@{/js/header.js}"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+d

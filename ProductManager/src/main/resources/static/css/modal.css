@@ -1,0 +1,15 @@
+.modal-body {
+    text-align: center;
+}
+
+.modal-body .warning-icon {
+    font-size: 3em;
+}
+
+.modal-header {
+    border-bottom: none;
+}
+
+.modal-footer {
+    border-top: none;
+}

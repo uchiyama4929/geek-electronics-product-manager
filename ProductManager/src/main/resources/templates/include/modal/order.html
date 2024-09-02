@@ -1,0 +1,38 @@
+<!-- 発注確認モーダル -->
+<div class="modal fade" id="confirmOrderModal" tabindex="-1" aria-labelledby="confirmOrderModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmOrderModalLabel">こちらの商品を発注しますか？</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3 class="modal-item_name">MacBook</h3>
+                <p>発注個数: <span id="confirm-quantity">0</span></p>
+                <p>発注金額: <span id="confirm-amount">¥0</span></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">キャンセル</button>
+                <button type="button" class="btn btn-green" onclick="completeOrder()">発注する</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 発注完了ポップアップ -->
+<div class="modal fade" id="completeOrderModal" tabindex="-1" aria-labelledby="completeOrderModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p class="modal-body_text">発注が完了しました。</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-green" data-dismiss="modal" onclick="reload()">OK</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,150 @@
+body {
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.main {
+    display: flex;
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.content {
+    flex: 1;
+    padding: 20px;
+    transition: margin-left 0.3s ease;
+}
+
+.product-card {
+    display: flex;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.product-card img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+}
+
+.product-card-body {
+    flex: 1;
+    width: 200px;
+    height: 200px;
+    padding: 15px;
+}
+
+.product-title {
+    font-size: 1.25rem;
+    margin-bottom: 25px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+
+.product-info {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pagination {
+    justify-content: center;
+    padding-bottom: 20px;
+}
+
+.btn-green {
+    background-color: #00A78D;
+    border-color: #00A78D;
+}
+
+.btn-green:hover {
+    background-color: #00876D;
+    border-color: #00876D;
+}
+
+.error-message {
+    height: 30px;
+    padding: 5px 0;
+    background-color: #f8d7da;
+    color: #721c24;
+    line-height: 1;
+    transition: transform 1s, opacity 1s;
+    vertical-align: center;
+}
+
+.error-message li {
+    list-style: none;
+}
+
+.fade-out {
+    animation: fadeOut 2s forwards;
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+        display: none;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .nav-menu {
+        width: 100%;
+    }
+
+    header {
+        padding: 0 20px;
+    }
+}
+
+@media (max-width: 1600px) {
+    .col-custom {
+        flex: 0 0 33%;
+        max-width: 33%;
+    }
+}
+
+@media (max-width: 1300px) {
+    .col-custom {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+}
+
+@media (max-width: 800px) {
+    .col-custom {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .form-inline {
+        display: block;
+    }
+
+    .form-inline .form-control {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .form-inline label {
+        display: flex;
+        align-items: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+    }
+
+    .mr-2 {
+        margin-right: 0 !important;
+    }
+}

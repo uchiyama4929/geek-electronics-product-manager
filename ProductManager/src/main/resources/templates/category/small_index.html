@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小カテゴリ一覧</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/btn.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/pagination.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/category/base.css}">
+</head>
+<body>
+<div th:insert="include/header"></div>
+
+<div class="container">
+    <div class="content">
+        <h2 class="mb-4 text-center">小カテゴリ一覧</h2>
+        <h3 class="mb-4 text-center" th:text="${middleCategory.getName()}"></h3>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>小カテゴリ名</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="smallCategory : ${smallCategories}"
+                th:onclick="|window.location.href='@{/category/small_detail/{id}(id=${smallCategory.id})}'|">
+                <td th:text="${smallCategory.getName()}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <div th:insert="include/paginate"></div>
+
+        <div class="text-center">
+            <a th:href="@{/category/middle_index/{parent_id}(parent_id=${middleCategory.getParentId()})}" class="btn btn-secondary">戻る</a>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" th:src="@{/js/header.js}"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

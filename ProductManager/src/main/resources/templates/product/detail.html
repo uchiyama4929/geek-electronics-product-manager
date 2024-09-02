@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商品詳細画面</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/btn.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/product/detail.css}">
+    <meta name="_csrf" th:content="${_csrf.token}">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
+</head>
+<body>
+<div id="product" th:data-product-id="${productId}"></div>
+<div th:insert="include/header"></div>
+<div class="container">
+    <div class="row contents">
+        <div class="col-lg-6 content">
+            <div class="item-image">
+                <img th:src="@{${productStoreDto.product().getImage()}}" class="product-image" alt="商品画像">
+            </div>
+
+            <div class="col-lg-6 content upper-content">
+                <div class="item-detail">
+                    <h2 class="product-name" th:text="${productStoreDto.product().getName()}"></h2>
+                    <pre class="description" th:text="${productStoreDto.product().getDescription()}"></pre>
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <th scope="row" class="detail_columns">仕入れ原価</th>
+                            <td><span id="cost-price" th:text="${productStoreDto.product().getCostPrice()}"></span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="detail_columns">メーカ希望小売価格</th>
+                            <td th:text="${productStoreDto.product().getRetailPrice()}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="detail_columns">販売価格</th>
+                            <td th:text="${productStoreDto.salePrice()}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="detail_columns">在庫数</th>
+                            <td th:text="${productStoreDto.stockQuantity()}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="detail_columns">大カテゴリ</th>
+                            <td th:text="${largeCategory.getName()}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="detail_columns">中カテゴリ</th>
+                            <td th:text="${middleCategory.getName()}">コンピュータ</td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="detail_columns">小カテゴリ</th>
+                            <td th:text="${productStoreDto.product().getCategory().getName()}">ノートパソコン</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="order-wrapper">
+                <div class="form-group">
+                    <label for="order-quantity">発注個数</label>
+                    <select id="order-quantity" class="form-control" onchange="updateOrderState()">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+                <p>発注金額: <span id="order-amount">¥0</span></p>
+                <button id="order-button" class="btn btn-green" onclick="confirmOrder()" disabled>発注</button>
+            </div>
+        </div>
+        <div class="col-lg-6 content lower-content">
+            <div class="item-detail">
+                <h2 class="product-name" th:text="${productStoreDto.product().getName()}"></h2>
+                <pre class="description" th:text="${productStoreDto.product().getDescription()}"></pre>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th scope="row" class="detail_columns">仕入れ原価</th>
+                            <td><span id="cost-price" th:text="${productStoreDto.product().getCostPrice()}"></span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="detail_columns">メーカ希望小売価格</th>
+                            <td th:text="${productStoreDto.product().getRetailPrice()}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="detail_columns">販売価格</th>
+                            <td th:text="${productStoreDto.salePrice()}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="detail_columns">在庫数</th>
+                            <td th:text="${productStoreDto.stockQuantity()}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="detail_columns">大カテゴリ</th>
+                            <td th:text="${largeCategory.getName()}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="detail_columns">中カテゴリ</th>
+                            <td th:text="${middleCategory.getName()}">コンピュータ</td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="detail_columns">小カテゴリ</th>
+                            <td th:text="${productStoreDto.product().getCategory().getName()}">ノートパソコン</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:insert="include/modal/order"></div>
+
+
+
+<script th:src="@{/js/header.js}"></script>
+<script th:src="@{/js/order.js}"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

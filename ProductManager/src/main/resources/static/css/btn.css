@@ -1,0 +1,25 @@
+
+.btn-green {
+    background-color: #00A78D;
+    border-color: #00A78D;
+    color: #fff;
+}
+
+.btn-green:hover {
+    background-color: #00876D;
+    border-color: #00876D;
+    color: #fff;
+}
+
+.btn-green:disabled {
+    background-color: #80BFB2;
+    border-color: #80BFB2;
+    color: #fff;
+}
+
+.btn-green:active,
+.btn-green:focus {
+    background-color: #00A78D;
+    border-color: #00A78D;
+    color: #fff;
+}s

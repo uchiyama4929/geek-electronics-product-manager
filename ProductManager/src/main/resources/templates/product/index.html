@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商品管理画面</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/btn.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/pagination.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/product/index.css}">
+</head>
+<body>
+<div th:insert="include/header"></div>
+<div th:if="${not #lists.isEmpty(errors)}">
+    <div id="error-message" class="error-message">
+        <ul>
+            <li th:text="${errors[0].defaultMessage}"></li>
+        </ul>
+    </div>
+</div>
+<div class="main">
+    <div class="content">
+        <section class="search-area">
+            <form class="form-inline mb-3" th:action="@{/product/index}" method="get" novalidate th:object="${categoryForm}">
+                <label>
+                    <input type="text" class="form-control mr-2" placeholder="商品名で検索" th:field="*{keyword}">
+                </label>
+                <label>
+                    <select id="largeCategory" class="form-control mr-2" th:field="*{largeCategory}">
+                        <option value="">大カテゴリ</option>
+                        <option th:each="largeCategory : ${largeCategories}" th:value="${largeCategory.getId()}"
+                                th:text="${largeCategory.getName()}"
+                                th:selected="${largeCategory.getId() == largeCategoryId}"></option>
+                    </select>
+                </label>
+                <label>
+                    <select id="middleCategory" class="form-control mr-2" th:field="*{middleCategory}">
+                        <option value="">中カテゴリ</option>
+                        <option th:each="middleCategory : ${middleCategories}" th:value="${middleCategory.getId()}"
+                                th:text="${middleCategory.getName()}"
+                                th:selected="${middleCategory.getId() == middleCategoryId}"></option>
+                    </select>
+                </label>
+                <label>
+                    <select id="smallCategory" name="smallCategory" class="form-control mr-2"
+                            th:field="*{smallCategory}">
+                        <option value="">小カテゴリ</option>
+                        <option th:each="smallCategory : ${smallCategories}" th:value="${smallCategory.getId()}"
+                                th:text="${smallCategory.getName()}"
+                                th:selected="${smallCategory.getId() == smallCategoryId}"></option>
+                    </select>
+                </label>
+                <button type="submit" class="btn btn-green">検索</button>
+            </form>
+        </section>
+        <section class="item-index">
+            <div class="row">
+                <div class="col-lg-3 col-custom mb-2" th:each="productStoreDto : ${productStoreDtoList}"
+                     th:onclick="|window.location.href='@{/product/detail/{id}(id=${productStoreDto.product.id})}'|">
+                    <div class="product-card">
+                        <img th:src="@{${productStoreDto.product().getImage()}}" class="card-img-top" alt="商品画像">
+                        <div class="product-card-body">
+                            <h5 class="product-title" th:text="${productStoreDto.product().getName()}"></h5>
+                            <p class="product-info" th:text="'仕入原価:  ' + ${productStoreDto.product().getCostPrice()}"></p>
+                            <p class="product-info" th:text="'販売価格:  ' + ${productStoreDto.salePrice()}"></p>
+                            <p class="product-info" th:text="'在庫数: ' + ${productStoreDto.stockQuantity()}"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div th:insert="include/paginate"></div>
+    </div>
+</div>
+<script type="text/javascript" th:src="@{/js/error-message.js}"></script>
+<script type="text/javascript" th:src="@{/js/header.js}"></script>
+<script type="text/javascript" th:src="@{/js/getSubCategories.js}"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

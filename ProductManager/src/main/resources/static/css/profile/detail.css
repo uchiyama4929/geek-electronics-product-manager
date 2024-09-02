@@ -1,0 +1,53 @@
+nav:hover {
+    opacity: 1 !important;
+    color: white !important;
+}
+
+a {
+    text-decoration: none !important;
+    color: #000;
+}
+
+a:hover {
+    color: #000;
+}
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+}
+
+.container {
+    margin-top: 40px;
+}
+
+.contents {
+    height: 80vh;
+}
+
+.content {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.profile-table {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.profile-table th, .profile-table td {
+    padding: 8px;
+    text-align: left;
+    border: 1px solid #dee2e6;
+}
+
+.profile-table th {
+    background-color: #00A78D;
+    color: #ffffff;
+}

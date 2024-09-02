@@ -1,0 +1,38 @@
+<header>
+    <div class="hamburger" id="hamburger" onclick="hamburgerClose()">
+        <span class="bar bar-top"></span>
+        <span class="bar bar-middle"></span>
+        <span class="bar bar-bottom"></span>
+    </div>
+    <a href="/product/index" style="color:white;">
+        <div class="title-logo ms-3">Geek電機商品マネージャー</div>
+    </a>
+    <nav class="nav-menu" id="nav-menu">
+        <ul>
+            <li>
+                <div class="admin-menu"><a th:href="@{/product/index}">商品一覧</a></div>
+            </li>
+            <li>
+                <div class="admin-menu"><a th:href="@{/profile/detail}">プロフィール</a></div>
+            </li>
+            <li>
+                <div class="admin-menu"><a th:href="@{/store/detail}">店舗情報の編集</a></div>
+            </li>
+            <li>
+                <div class="admin-menu"><a th:href="@{/manager/index}">管理者一覧</a></div>
+            </li>
+            <li>
+                <div class="admin-menu"><a th:href="@{/order/index}">発注履歴</a></div>
+            </li>
+            <li>
+                <div class="admin-menu"><a th:href="@{/manufacturer/index}">メーカ情報管理</a></div>
+            </li>
+            <li>
+                <div class="admin-menu"><a th:href="@{/category/large_index}">カテゴリ管理</a></div>
+            </li>
+            <li>
+                <div class="admin-menu"><a th:href="@{/logout}">ログアウト</a></div>
+            </li>
+        </ul>
+    </nav>
+</header>

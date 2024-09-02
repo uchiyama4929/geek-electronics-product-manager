@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理者情報編集画面</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/btn.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/manager/form.css}">
+</head>
+<body>
+<div th:insert="include/header"></div>
+<div class="container">
+    <div class="row contents">
+        <div class="col-lg-8 offset-lg-2 content">
+            <h2 class="text-center mb-4">管理者編集</h2>
+            <form th:action="@{/manager/edit}" method="post" novalidate th:object="${ManagerForm}">
+                <input type="hidden" th:field="*{id}">
+                <div class="form-group">
+                    <label for="store-name">店舗名</label>
+                    <select th:field="*{storeId}" class="form-control" id="store-name">
+                        <option th:value="0">店舗を選択してください</option>
+                        <option th:each="store : ${stores}" th:value="${store.getId()}"
+                                th:text="${store.getName()}"
+                                th:selected="${store.getId() == manager.getStore().getId()}"></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="last_name">姓</label>
+                    <input type="text" th:field="*{lastName}" class="form-control" id="last_name" placeholder="姓を入力">
+                    <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" style="color: red"></span>
+                </div>
+                <div class="form-group">
+                    <label for="first_name">名</label>
+                    <input type="text" th:field="*{firstName}" class="form-control" id="first_name" placeholder="名を入力">
+                    <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" style="color: red"></span>
+
+                </div>
+                <div class="form-group">
+                    <label for="phone_number">電話番号</label>
+                    <input type="tel" th:field="*{phoneNumber}" class="form-control" id="phone_number" placeholder="電話番号を入力">
+                    <span th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" style="color: red"></span>
+                </div>
+                <div class="form-group">
+                    <label for="email">メールアドレス</label>
+                    <input type="email" th:field="*{email}" class="form-control" id="email" placeholder="emailを入力">
+                    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color: red"></span>
+                </div>
+                <div class="form-group">
+                    <label for="password">パスワード</label>
+                    <input type="password" th:field="*{password}" class="form-control" id="password" placeholder="パスワードを入力">
+                    <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color: red"></span>
+                </div>
+                <div class="form-group">
+                    <label for="password-confirmation">パスワード確認</label>
+                    <input type="password" th:field="*{passwordConfirmation}" class="form-control" id="password-confirmation" placeholder="確認のためもう一度入力してください。">
+                    <span th:if="${#fields.hasErrors('passwordConfirmation')}" th:errors="*{passwordConfirmation}" style="color: red"></span>
+                </div>
+                <div class="form-group">
+                    <label for="position">役職</label>
+                    <select th:field="*{positionId}" class="form-control" id="position">
+                        <option th:value="0">役職を選択してください</option>
+                        <option th:each="position : ${positions}" th:value="${position.getId()}"
+                                th:text="${position.getName()}"
+                                th:selected="${position.getId() == manager.getPosition().getId()}"></option>
+                    </select>
+                    <span th:if="${#fields.hasErrors('positionId')}" th:errors="*{positionId}" class="red"></span>
+                </div>
+                <div class="form-group">
+                    <label for="permission">権限</label>
+                    <select th:field="*{permissionId}" class="form-control" id="permission">
+                        <option th:value="0">権限を選択してください</option>
+                        <option th:each="permission : ${permissions}" th:value="${permission.getId()}"
+                                th:text="${permission.getName()}"
+                                th:selected="${permission.getId() == manager.getPermission().getId()}"></option>
+                    </select>
+                    <span th:if="${#fields.hasErrors('permissionId')}" th:errors="*{permissionId}" style="color: red"></span>
+                </div>
+                <div class="text-center">
+                    <a th:href="@{/manager/detail/{id}(id=${manager.id})}" class="btn btn-secondary">戻る</a>
+                    <button class="btn btn-green">登録</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" th:src="@{/js/header.js}"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

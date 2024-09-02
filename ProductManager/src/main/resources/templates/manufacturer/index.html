@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>メーカ情報一覧</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/btn.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/pagination.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/manufacturer/index.css}">
+</head>
+<body>
+<div th:insert="include/header"></div>
+<div class="container">
+    <div class="content">
+        <h2 class="mb-4 text-center">メーカ一覧</h2>
+        <div class="d-flex justify-content-end align-items-center mb-4">
+            <a th:href="@{/manufacturer/create}" class="btn btn-green">メーカの新規登録</a>
+        </div>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>メーカ名</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="manufacturer : ${manufacturers}"
+                     th:onclick="|window.location.href='@{/manufacturer/detail/{id}(id=${manufacturer.id})}'|">
+                <td th:text="${manufacturer.getName()}">三角電機</td>
+            </tr>
+            </tbody>
+        </table>
+        <div th:insert="include/paginate"></div>
+    </div>
+</div>
+<script type="text/javascript" th:src="@{/js/header.js}"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

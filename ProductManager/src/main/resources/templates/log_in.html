@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geek電機商品マネージャー - ログイン</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/btn.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .login-card {
+            width: 100%;
+            max-width: 400px;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+        }
+        .login-title {
+            margin-bottom: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .form-text {
+            text-align: center;
+        }
+        .red {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div class="login-card">
+    <h2 class="login-title">Geek電機商品マネージャー</h2>
+    <form th:action="@{/login}" th:object="${loginForm}" method="post" novalidate>
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <div class="form-group">
+            <label for="email">メールアドレス</label>
+            <input type="email" th:field="*{email}" class="form-control" id="email" placeholder="メールアドレスを入力">
+            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="red"></span>
+        </div>
+        <div class="form-group">
+            <label for="password">パスワード</label>
+            <input type="password" th:field="*{password}" class="form-control" id="password" placeholder="パスワードを入力">
+            <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="red"></span>
+        </div>
+        <button type="submit" class="btn btn-green btn-block">ログイン</button>
+    </form>
+    <p class="form-text text-muted mt-3">
+        パスワードを忘れた方は<br>システム管理者までご連絡ください。
+    </p>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

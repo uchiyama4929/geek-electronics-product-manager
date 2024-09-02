@@ -1,0 +1,166 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+}
+
+.container {
+    margin-top: 40px;
+}
+
+.contents {
+    height: 80vh;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+}
+
+.item-image {
+    margin: 0 auto;
+    background: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    position: relative;
+
+}
+
+.item-image img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 90%;
+    aspect-ratio: 1 / 1;
+    display: block;
+}
+
+.order-wrapper {
+    flex: 1;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 300px;
+}
+
+.item-detail {
+    flex: 2;
+    background: #ffffff;
+    height: 100%;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.product-image {
+    max-width: 100%;
+    height: auto;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.product-name {
+    margin: 2px 2px 0 15px;
+}
+
+.description {
+    margin-top: 26px;
+    height: 244px;
+    background-color: #F8FAFA;
+    padding: 20px;
+
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.detail_columns {
+    background-color: #00A78D;
+    color: #ffffff;
+}
+
+.table {
+    margin-top: 20px;
+}
+
+.table th {
+    width: 33%;
+    text-align: left;
+    padding: 8px;
+}
+
+.modal-header {
+    border-bottom: none;
+}
+
+.modal-body_text {
+    margin-top: 50px;
+    text-align: center;
+}
+
+.modal-content {
+    padding: 20px;
+    height: 350px;
+    border: none;
+}
+
+.modal-item_name {
+    margin-bottom: 2rem;
+}
+
+.modal-footer {
+    border-top: none;
+}
+
+.modal-body p {
+    margin-bottom: 10px;
+}
+
+.modal-dialog {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.table td, .table th {
+    border-right: 1px solid #dee2e6;
+}
+
+.table td:last-child, .table th:last-child {
+    border-bottom: 1px solid #dee2e6;
+}
+
+.lower-content {
+    display: block;
+}
+
+.upper-content {
+    display: none;
+}
+
+@media (max-width: 991px) {
+    .upper-content {
+        padding: 0 !important;
+        margin-top: 30px;
+        display: block;
+    }
+
+    .lower-content {
+        display: none;
+    }
+
+    .order-wrapper {
+        margin-bottom: 30px;
+    }
+}
