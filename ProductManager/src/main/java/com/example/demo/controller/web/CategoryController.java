@@ -51,8 +51,15 @@ public class CategoryController {
             @PathVariable(name = "parent_id") Long parentId,
             @RequestParam(value = "page", defaultValue = "0") int page
     ) {
+
+
         Category largeCategory = categoryService.findById(parentId);
+
+
+
+
         Page<Category> middleCategories = categoryService.findByParentId(parentId, PageRequest.of(page, PAGE_SIZE));
+
         model.addAttribute("largeCategory", largeCategory);
         model.addAttribute("middleCategories", middleCategories);
         model.addAttribute("pageName", "/category/middle_index");

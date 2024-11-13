@@ -130,6 +130,8 @@ public class ManagerController {
             @PathVariable(name = "id") Long id
     ) {
         Manager manager = managerService.findById(id);
+
+
         List<Store> stores = storeService.findAll();
         List<Position> positions = positionService.findAll();
         List<Permission> permissions = permissionService.findAll();

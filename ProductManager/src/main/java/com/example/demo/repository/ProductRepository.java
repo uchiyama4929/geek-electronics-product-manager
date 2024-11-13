@@ -11,7 +11,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface ProductRepository extends JpaRepository<Product, Long> {
+public interface ProductRepository extends My<Product, Long> {
     /**
      * メーカーIDに紐づく商品を全件取得
      * ページネイト対応
